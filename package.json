@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "uuid": "^9.0.1",
     "vue": "^3.3.11"
   },
   "devDependencies": {
