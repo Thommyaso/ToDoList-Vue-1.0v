@@ -1,10 +1,13 @@
 <template>
   <div class="container" id="listContainer">
       <ul class="container__list">
-        <li class="container__listEl" v-for="task in this.tasks">
-          <p>{{ task.task }}</p>
-          <button class="btn-delete" type="button" @click="deleteTask(task.id)">Delete</button>
-        </li>
+        <LiEl
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task.task"
+          @deleteClicked = "deleteTask(task.id)"
+          >
+        </LiEl>
       </ul>
       <form class="container__form" action="">
           <textarea ref="myTextarea" name="textarea" class="container__textarea" id="" cols="30" rows="10"></textarea>
@@ -15,8 +18,12 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
+import LiEl from './components/LiEl/LiEl.vue'
 
 export default {
+  components: {
+    LiEl
+  },
   data() {
     return {
       tasks: [
@@ -36,10 +43,8 @@ export default {
     }
   },
   mounted(){
-    console.log(this.tasks)
     this.textarea = this.$refs.myTextarea;
   },
-
   methods: {
     add(){
       this.tasks.push({
@@ -49,16 +54,8 @@ export default {
       this.textarea.value = ''
     },
     deleteTask(id){
-      console.log(uuidv4())
       this.tasks = this.tasks.filter(task =>task.id !== id)
-    }
+    },
   }
 }
 </script>
-
-<style>
-.container__listEl{
-  display: flex;
-  margin-bottom: 0.5rem;
-}
-</style>
