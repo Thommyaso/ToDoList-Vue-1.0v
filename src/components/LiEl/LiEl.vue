@@ -1,13 +1,29 @@
 <template>
     <li class="container__listEl">
         <p>{{ task }}</p>
-        <button class="btn-delete" type="button" @click="deleteTask">Delete</button>
+        <Buttons
+          :class = "btnClass"
+          :text = "btnText"
+          @click="deleteTask"
+        >
+        </Buttons>
     </li>
 </template>
 
 <script>
+import Buttons from '../Buttons/Buttons.vue';
+
 export default {
-  props: ['id','task'],
+  components: {
+    Buttons
+  },
+  data(){
+    return {
+      btnClass: 'btn--delete',
+      btnText: 'delete'
+    }
+  },
+  props: ['task'],
   methods: {
     deleteTask(){
         this.$emit('deleteClicked')
