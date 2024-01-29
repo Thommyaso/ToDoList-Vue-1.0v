@@ -6,23 +6,25 @@
           :key="task.id"
           :task="task.task"
           @deleteClicked = "deleteTask(task.id)"
-          >
+        >
         </LiEl>
       </ul>
-      <form class="container__form" action="">
-          <textarea ref="myTextarea" name="textarea" class="container__textarea" id="" cols="30" rows="10"></textarea>
-          <button @click="add" class="container__btn" type="button">Add</button>
-      </form>
+      <Form
+        @submitEvent = "submitTask"
+      >
+      </Form>
   </div>
 </template>
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
-import LiEl from './components/LiEl/LiEl.vue'
+import LiEl from './components/LiEl/LiEl.vue';
+import Form from './components/Form/Form.vue'
 
 export default {
   components: {
-    LiEl
+    LiEl,
+    Form
   },
   data() {
     return {
@@ -42,16 +44,12 @@ export default {
       ],
     }
   },
-  mounted(){
-    this.textarea = this.$refs.myTextarea;
-  },
   methods: {
-    add(){
+    submitTask(data){
       this.tasks.push({
         id: uuidv4(),
-        task: this.textarea.value
+        task: data
       })
-      this.textarea.value = ''
     },
     deleteTask(id){
       this.tasks = this.tasks.filter(task =>task.id !== id)
