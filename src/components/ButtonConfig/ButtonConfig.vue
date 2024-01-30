@@ -1,9 +1,11 @@
 <template>
-   <button type="button" :class="btnClass">{{ text }}</button>
+   <button type="button" :class="btnClass"></button>
 </template>
 
 <script>
+import './ButtonConfig.scss';
+
 export default {
-    props: ['text', 'btnClass'],
+    props: ['btnClass'],
 };
 </script>

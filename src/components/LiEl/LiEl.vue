@@ -3,7 +3,6 @@
         <p>{{ task }}</p>
         <ButtonConfig
           :class = "btnClass"
-          :text = "btnText"
           @click="deleteTask"
         >
         </ButtonConfig>
@@ -11,6 +10,7 @@
 </template>
 
 <script>
+import './LiEl.scss';
 import ButtonConfig from '../ButtonConfig/ButtonConfig.vue';
 
 export default {
@@ -20,7 +20,6 @@ export default {
     data() {
         return {
             btnClass: 'btn--delete',
-            btnText: 'delete',
         };
     },
     props: ['task'],
@@ -31,10 +30,3 @@ export default {
     },
 };
 </script>
-
-<style>
-    .container__listEl{
-    display: flex;
-    margin-bottom: 0.5rem;
-    }
-</style>

@@ -3,7 +3,6 @@
         <textarea ref="myTextarea" name="textarea" class="container__textarea" id="" cols="30" rows="10"></textarea>
         <ButtonConfig
             :class = "btnClass"
-            :text = "btnText"
             @click = "newTask"
         >
         </ButtonConfig>
@@ -11,6 +10,7 @@
 </template>
 
 <script>
+import './TaskForm.scss';
 import ButtonConfig from '../ButtonConfig/ButtonConfig.vue';
 
 export default {
@@ -20,7 +20,6 @@ export default {
     data() {
         return {
             btnClass: 'btn--add',
-            btnText: 'Add',
         };
     },
     mounted() {
