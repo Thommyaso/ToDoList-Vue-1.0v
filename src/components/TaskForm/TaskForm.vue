@@ -1,36 +1,36 @@
 <template>
     <form class="container__form" action="">
         <textarea ref="myTextarea" name="textarea" class="container__textarea" id="" cols="30" rows="10"></textarea>
-        <Buttons
+        <ButtonConfig
             :class = "btnClass"
             :text = "btnText"
             @click = "newTask"
         >
-        </Buttons>
+        </ButtonConfig>
     </form>
 </template>
 
 <script>
-import Buttons from '../Buttons/Buttons.vue'
+import ButtonConfig from '../ButtonConfig/ButtonConfig.vue';
 
 export default {
     components: {
-        Buttons
+        ButtonConfig,
     },
-    data(){
+    data() {
         return {
             btnClass: 'btn--add',
-            btnText: 'Add'
-        }
+            btnText: 'Add',
+        };
     },
-    mounted(){
+    mounted() {
         this.textarea = this.$refs.myTextarea;
     },
     methods: {
         newTask() {
-            this.$emit('submitEvent', this.textarea.value)
-            this.textarea.value = ''
-        }
-    }
-}
+            this.$emit('submitEvent', this.textarea.value);
+            this.textarea.value = '';
+        },
+    },
+};
 </script>
