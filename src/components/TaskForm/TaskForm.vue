@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         newTask() {
-            this.$emit('submitEvent', this.textarea.value);
+            this.$emit('onTask', this.textarea.value);
             this.textarea.value = '';
         },
     },
