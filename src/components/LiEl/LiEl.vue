@@ -1,6 +1,6 @@
 <template>
     <li class="container__listEl">
-        <p>{{ task }}</p>
+        <p class="container__paragraph">{{ task }}</p>
         <ButtonConfig
           :class = "btnClass"
           @click="deleteTask"

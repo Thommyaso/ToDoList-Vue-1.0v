@@ -6,9 +6,6 @@ export default {
     component: ButtonConfig,
     tags: ['autodocs'],
     argTypes: {
-        text: {
-            control: 'text',
-        },
         btnClass: {
             control: 'text',
         },
