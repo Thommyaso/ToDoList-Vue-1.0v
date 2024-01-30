@@ -1,4 +1,5 @@
 import TaskForm from './TaskForm.vue';
+import '../../assets/styles/base/_index.scss';
 
 export default {
     title: 'Example/TaskForm',

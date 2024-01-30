@@ -1,4 +1,5 @@
 import LiEl from './LiEl.vue';
+import '../../assets/styles/base/_index.scss';
 
 export default {
     title: 'Example/ListEl',

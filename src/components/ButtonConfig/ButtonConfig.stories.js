@@ -1,4 +1,5 @@
 import ButtonConfig from './ButtonConfig.vue';
+import '../../assets/styles/base/_index.scss';
 
 export default {
     title: 'Example/Button',
