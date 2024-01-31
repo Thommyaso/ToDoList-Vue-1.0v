@@ -3,27 +3,38 @@ import axios from 'axios';
 
 export const taskStore = reactive({
     tasks: [],
-    displayMessage: false,
-    message: '',
+    alert: {
+        display: false,
+        error: false,
+        message: '',
+    },
     baseUrl: 'http://localhost:3000/task/',
 
     resetAlert() {
-        this.message = '';
-        this.displayMessage = false;
+        this.alert.message = '';
+        this.alert.display = false;
+        this.error = false;
     },
 
-    setAlert(message) {
-        this.message = message;
-        this.displayMessage = true;
+    setAlert(data) {
+        this.alert.display = true;
+        this.alert.error = data.error;
+        this.alert.message = data.message;
     },
 
     async retriveTasks() {
         return await axios.get(this.baseUrl)
             .then((result) => {
                 this.tasks = result.data;
+                this.resetAlert();
             })
             .catch((error) => {
-                this.setAlert(error.message);
+                this.setAlert(
+                    {
+                        error: true,
+                        message: error.message,
+                    },
+                );
                 console.log(error);
             });
     },
@@ -34,7 +45,12 @@ export const taskStore = reactive({
                 this.tasks.push(result.data.createdTask);
             })
             .catch((error) => {
-                this.setAlert(error.message);
+                this.setAlert(
+                    {
+                        error: true,
+                        message: error.message,
+                    },
+                );
                 console.log(error);
             });
     },
@@ -45,7 +61,12 @@ export const taskStore = reactive({
                 this.tasks = this.tasks.filter((task) => task.id !== id);
             })
             .catch((error) => {
-                this.setAlert(error.message);
+                this.setAlert(
+                    {
+                        error: true,
+                        message: error.message,
+                    },
+                );
                 console.log(error);
             });
     },

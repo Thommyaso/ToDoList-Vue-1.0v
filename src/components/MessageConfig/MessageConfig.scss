@@ -5,6 +5,13 @@
 
     &--visible{
         visibility: visible;
+    }
+
+    &--error{
         color: red;
+    }
+
+    &--info{
+        color: green;
     }
 }

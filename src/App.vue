@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="listContainer">
     <MessageConfig
-      :message="this.taskStore.message"
+      :message="this.taskStore.alert.message"
       :classes="alertClasses"
     ></MessageConfig>
       <ul class="container__list">
@@ -38,12 +38,18 @@ export default {
     computed: {
         alertClasses() {
             return {
-                'alert--visible': this.taskStore.displayMessage,
-                'alert--hidden': !this.taskStore.displayMessage,
+                'alert--visible': this.taskStore.alert.display,
+                'alert--hidden': !this.taskStore.alert.display,
+                'alert--error': this.taskStore.alert.display && this.taskStore.alert.error,
+                'alert--info': this.taskStore.alert.display && !this.taskStore.alert.error,
             };
         },
     },
     mounted() {
+        this.taskStore.setAlert({
+            error: false,
+            message: 'Loading...',
+        });
         this.taskStore.retriveTasks();
     },
     methods: {
