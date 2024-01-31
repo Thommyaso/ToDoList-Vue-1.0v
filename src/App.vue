@@ -29,6 +29,9 @@ export default {
         LiEl,
         TaskForm,
     },
+    mounted() {
+        this.taskStore.retriveTasks();
+    },
     methods: {
         handleTask(data) {
             taskStore.submitTask(data);
