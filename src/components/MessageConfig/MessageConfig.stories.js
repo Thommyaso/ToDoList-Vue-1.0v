@@ -6,12 +6,21 @@ export default {
     component: MessageConfig,
     tags: ['autodocs'],
     argTypes: {
+        classes: {control: {type: null}},
+        message: {control: 'text'},
     },
 };
 
 export const ErrorMessage = {
     args: {
         message: 'Network error',
-        classes: 'alert--visible',
+        classes: ['alert--visible', 'alert--error'],
+    },
+};
+
+export const InfoMessage = {
+    args: {
+        message: 'Loading...',
+        classes: ['alert--visible', 'alert--info'],
     },
 };

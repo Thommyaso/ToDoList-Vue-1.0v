@@ -6,8 +6,7 @@ export default {
     component: TaskForm,
     tags: ['autodocs'],
     argTypes: {
-        task: {
-        },
+        onTask: {control: {type: null}},
     },
 };
 

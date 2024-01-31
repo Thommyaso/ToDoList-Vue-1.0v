@@ -1,6 +1,11 @@
 <template>
     <form class="container__form" action="">
-        <textarea ref="myTextarea" name="textarea" class="container__textarea" id="" cols="30" rows="10"></textarea>
+        <textarea
+            ref="myTextarea"
+            name="textarea"
+            class="container__textarea"
+            placeholder="Type-in task..."
+        ></textarea>
         <ButtonConfig
             :class = "btnClass"
             @click = "newTask"
