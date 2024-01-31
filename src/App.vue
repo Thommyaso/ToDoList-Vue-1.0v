@@ -1,5 +1,10 @@
 <template>
   <div class="container" id="listContainer">
+    <p
+      class="alert"
+      :class="alertClasses"
+    >{{ this.taskStore.message }}
+    </p>
       <ul class="container__list">
         <LiEl
           v-for="task in taskStore.tasks"
@@ -29,6 +34,14 @@ export default {
         LiEl,
         TaskForm,
     },
+    computed: {
+        alertClasses() {
+            return {
+                'alert--active': this.taskStore.displayMessage,
+                'alert--hidden': !this.taskStore.displayMessage,
+            };
+        },
+    },
     mounted() {
         this.taskStore.retriveTasks();
     },
@@ -39,3 +52,12 @@ export default {
     }};
 
 </script>
+<style>
+.alert--hidden{
+  visibility: hidden;
+}
+.alert--active{
+  visibility: visible;
+  color: red;
+}
+</style>
