@@ -7,44 +7,45 @@ export const taskStore = reactive({
     message: '',
     baseUrl: 'http://localhost:3000/task/',
 
-    async retriveTasks() {
+    resetAlert() {
         this.message = '';
         this.displayMessage = false;
+    },
+
+    setAlert(message) {
+        this.message = message;
+        this.displayMessage = true;
+    },
+
+    async retriveTasks() {
         return await axios.get(this.baseUrl)
             .then((result) => {
                 this.tasks = result.data;
             })
             .catch((error) => {
-                this.message = error.message;
-                this.displayMessage = true;
+                this.setAlert(error.message);
                 console.log(error);
             });
     },
 
     async submitTask(task) {
-        this.message = '';
-        this.displayMessage = false;
         return await axios.post(this.baseUrl, {task})
             .then((result) => {
                 this.tasks.push(result.data.createdTask);
             })
             .catch((error) => {
-                this.message = error.message;
-                this.displayMessage = true;
+                this.setAlert(error.message);
                 console.log(error);
             });
     },
 
     async deleteTask(id) {
-        this.message = '';
-        this.displayMessage = false;
         return await axios.delete(`${this.baseUrl}${id}`)
             .then(() => {
                 this.tasks = this.tasks.filter((task) => task.id !== id);
             })
             .catch((error) => {
-                this.message = error.message;
-                this.displayMessage = true;
+                this.setAlert(error.message);
                 console.log(error);
             });
     },

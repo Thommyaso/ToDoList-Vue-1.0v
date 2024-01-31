@@ -1,16 +1,15 @@
 <template>
   <div class="container" id="listContainer">
-    <p
-      class="alert"
-      :class="alertClasses"
-    >{{ this.taskStore.message }}
-    </p>
+    <MessageConfig
+      :message="this.taskStore.message"
+      :classes="alertClasses"
+    ></MessageConfig>
       <ul class="container__list">
         <LiEl
           v-for="task in taskStore.tasks"
           :key="task.id"
           :task="task.task"
-          @deleteClicked = "taskStore.deleteTask(task.id)"
+          @deleteClicked = "handleDelete(task.id)"
         >
         </LiEl>
       </ul>
@@ -22,6 +21,7 @@
 </template>
 
 <script>
+import MessageConfig from './components/MessageConfig/MessageConfig.vue';
 import LiEl from './components/LiEl/LiEl.vue';
 import TaskForm from './components/TaskForm/TaskForm.vue';
 import {taskStore} from './stores/TaskStore';
@@ -33,11 +33,12 @@ export default {
     components: {
         LiEl,
         TaskForm,
+        MessageConfig,
     },
     computed: {
         alertClasses() {
             return {
-                'alert--active': this.taskStore.displayMessage,
+                'alert--visible': this.taskStore.displayMessage,
                 'alert--hidden': !this.taskStore.displayMessage,
             };
         },
@@ -47,17 +48,13 @@ export default {
     },
     methods: {
         handleTask(data) {
+            taskStore.resetAlert();
             taskStore.submitTask(data);
         },
+        handleDelete(id) {
+            taskStore.resetAlert();
+            taskStore.deleteTask(id);
+        },
     }};
-
 </script>
-<style>
-.alert--hidden{
-  visibility: hidden;
-}
-.alert--active{
-  visibility: visible;
-  color: red;
-}
-</style>
+
