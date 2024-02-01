@@ -31,6 +31,7 @@ export default {
     methods: {
         newTask() {
             this.$emit('onTask', this.textarea.value);
+            this.textarea.value = '';
         },
     },
 };

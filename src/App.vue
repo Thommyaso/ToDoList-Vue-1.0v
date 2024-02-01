@@ -56,14 +56,14 @@ export default {
     },
     methods: {
         handleTask(data) {
-            if (taskStore.requestProcessing === false) {
+            if (!taskStore.requestProcessing && taskStore.validateTask(data)) {
                 taskStore.requestProcessing = true;
                 taskStore.resetAlert();
                 taskStore.submitTask(data);
             }
         },
         handleDelete(id) {
-            if (taskStore.requestProcessing === false) {
+            if (!taskStore.requestProcessing) {
                 taskStore.requestProcessing = true;
                 taskStore.resetAlert();
                 taskStore.deleteTask(id);

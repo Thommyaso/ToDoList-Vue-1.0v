@@ -23,6 +23,17 @@ export const taskStore = reactive({
         this.alert.message = data.message;
     },
 
+    validateTask(task) {
+        if (task.length > 0) {
+            return true;
+        }
+        this.setAlert({
+            error: true,
+            message: 'Invalid task',
+        });
+        return false;
+    },
+
     async retriveTasks() {
         return await axios.get(this.baseUrl)
             .then((result) => {
