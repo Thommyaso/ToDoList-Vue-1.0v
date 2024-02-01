@@ -8,6 +8,7 @@ export const taskStore = reactive({
         error: false,
         message: '',
     },
+    requestProcessing: false,
     baseUrl: 'http://localhost:3000/task/',
 
     resetAlert() {
@@ -52,6 +53,9 @@ export const taskStore = reactive({
                     },
                 );
                 console.log(error);
+            })
+            .finally(() => {
+                this.requestProcessing = false;
             });
     },
 
@@ -68,6 +72,9 @@ export const taskStore = reactive({
                     },
                 );
                 console.log(error);
+            })
+            .finally(() => {
+                this.requestProcessing = false;
             });
     },
 });

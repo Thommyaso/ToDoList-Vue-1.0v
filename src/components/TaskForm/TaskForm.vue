@@ -7,10 +7,10 @@
             placeholder="Type-in task..."
         ></textarea>
         <ButtonConfig
-            :class = "btnClass"
+            class="btn--add"
+            :isDisabled="disableBtn"
             @click = "newTask"
-        >
-        </ButtonConfig>
+        />
     </form>
 </template>
 
@@ -22,10 +22,8 @@ export default {
     components: {
         ButtonConfig,
     },
-    data() {
-        return {
-            btnClass: 'btn--add',
-        };
+    props: {
+        disableBtn: Boolean,
     },
     mounted() {
         this.textarea = this.$refs.myTextarea;
@@ -33,7 +31,6 @@ export default {
     methods: {
         newTask() {
             this.$emit('onTask', this.textarea.value);
-            this.textarea.value = '';
         },
     },
 };

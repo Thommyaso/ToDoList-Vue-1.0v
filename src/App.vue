@@ -3,20 +3,20 @@
     <MessageConfig
       :message="this.taskStore.alert.message"
       :classes="alertClasses"
-    ></MessageConfig>
+    />
       <ul class="container__list">
         <LiEl
           v-for="task in taskStore.tasks"
           :key="task.id"
           :task="task.task"
           @deleteClicked = "handleDelete(task.id)"
-        >
-        </LiEl>
+          :disableBtn = "taskStore.requestProcessing"
+        />
       </ul>
       <TaskForm
         @onTask = "handleTask"
-      >
-      </TaskForm>
+        :disableBtn = "taskStore.requestProcessing"
+      />
   </div>
 </template>
 
@@ -28,7 +28,9 @@ import {taskStore} from './stores/TaskStore';
 
 export default {
     data() {
-        return {taskStore};
+        return {
+            taskStore,
+        };
     },
     components: {
         LiEl,
@@ -54,12 +56,18 @@ export default {
     },
     methods: {
         handleTask(data) {
-            taskStore.resetAlert();
-            taskStore.submitTask(data);
+            if (taskStore.requestProcessing === false) {
+                taskStore.requestProcessing = true;
+                taskStore.resetAlert();
+                taskStore.submitTask(data);
+            }
         },
         handleDelete(id) {
-            taskStore.resetAlert();
-            taskStore.deleteTask(id);
+            if (taskStore.requestProcessing === false) {
+                taskStore.requestProcessing = true;
+                taskStore.resetAlert();
+                taskStore.deleteTask(id);
+            }
         },
     }};
 </script>

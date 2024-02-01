@@ -2,10 +2,10 @@
     <li class="container__listEl">
         <p class="container__paragraph">{{ task }}</p>
         <ButtonConfig
-          :class = "btnClass"
-          @click="deleteTask"
-        >
-        </ButtonConfig>
+            class="btn--delete"
+            @click="deleteTask"
+            :isDisabled="disableBtn"
+        />
     </li>
 </template>
 
@@ -17,12 +17,10 @@ export default {
     components: {
         ButtonConfig,
     },
-    data() {
-        return {
-            btnClass: 'btn--delete',
-        };
+    props: {
+        task: String,
+        disableBtn: Boolean,
     },
-    props: ['task'],
     methods: {
         deleteTask() {
             this.$emit('deleteClicked');
