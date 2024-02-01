@@ -2,7 +2,7 @@
     <li class="container__listEl">
         <p class="container__paragraph">{{ task }}</p>
         <ButtonConfig
-            class="btn--delete"
+            btnClass="btn--delete"
             @click="deleteTask"
             :isDisabled="disableBtn"
         />

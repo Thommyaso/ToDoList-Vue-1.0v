@@ -7,7 +7,7 @@
             placeholder="Type-in task..."
         ></textarea>
         <ButtonConfig
-            class="btn--add"
+            btnClass="btn--add"
             :isDisabled="disableBtn"
             @click = "newTask"
         />

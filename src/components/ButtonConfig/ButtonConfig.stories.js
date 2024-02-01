@@ -7,7 +7,10 @@ export default {
     tags: ['autodocs'],
     argTypes: {
         btnClass: {
-            control: 'text',
+            control: {type: null},
+        },
+        isDisabled: {
+            control: 'boolean',
         },
     },
 };
@@ -15,12 +18,14 @@ export default {
 export const Delete = {
     args: {
         btnClass: 'btn--delete',
+        isDisabled: false,
     },
 };
 
 export const Add = {
     args: {
         btnClass: 'btn--add',
+        isDisabled: false,
     },
 };
 

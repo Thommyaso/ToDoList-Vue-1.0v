@@ -14,6 +14,7 @@ export default {
         classes() {
             return {
                 'btn--disabled': this.isDisabled,
+                [this.btnClass]: true,
             };
         },
     },
