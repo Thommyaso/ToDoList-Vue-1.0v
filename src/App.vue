@@ -17,7 +17,7 @@
         @onTask = "handleTask"
         :disableBtn = "taskStore.requestProcessing"
       />
-      <ul>
+      <div>
         <Alert
         v-for="alert in alertStore.alerts"
         :message="alert.message"
@@ -25,7 +25,7 @@
         :type="alert.type"
         @removeAlert="this.alertStore.removeAlert()"
         ></Alert>
-      </ul>
+      </div>
   </div>
 </template>
 

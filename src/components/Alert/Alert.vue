@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <li
-    :class="setClass">{{ message }}</li>
+    <div
+    :class="setClass">{{ message }}</div>
 </template>
 <script>
 import './Alert.scss';

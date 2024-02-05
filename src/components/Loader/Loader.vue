@@ -1,11 +1,11 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-   <!-- <p :class="classes">{{ message }}</p> -->
    <div :class="setClass"></div>
 </template>
 <script>
 import './Loader.scss';
 export default {
-    props: ['visible'], /* 'classes', 'message' */
+    props: ['visible'],
     computed: {
         setClass() {
             if (this.visible) {
