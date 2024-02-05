@@ -22,8 +22,6 @@ export default {
                 return 'alert--error';
             } else if (this.type === 'info') {
                 return 'alert--info';
-            } else if (this.type === 'warning') {
-                return 'alert--warning';
             }
             return 'alert--hidden';
         },

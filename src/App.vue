@@ -51,16 +51,6 @@ export default {
         Alert,
         Loader,
     },
-    computed: {
-        alertClasses() {
-            return {
-                'alert--visible': this.taskStore.alert.display,
-                'alert--hidden': !this.taskStore.alert.display,
-                'alert--error': this.taskStore.alert.display && this.taskStore.alert.error,
-                'alert--info': this.taskStore.alert.display && !this.taskStore.alert.error,
-            };
-        },
-    },
     mounted() {
         this.showLoader = true;
         this.taskStore.retriveTasks()
@@ -74,7 +64,6 @@ export default {
             .finally(() => {
                 this.showLoader = false;
             });
-
     },
     methods: {
         handleTask(data) {
@@ -89,6 +78,13 @@ export default {
             if (!taskStore.requestProcessing) {
                 taskStore.requestProcessing = true;
                 taskStore.submitTask(data)
+                    .then(() => {
+                        this.alertStore.setAlert({
+                            type: 'info',
+                            message: 'Task Added',
+                            key: this.alertStore.generateKey(),
+                        });
+                    })
                     .catch((error) => {
                         this.alertStore.setAlert({
                             type: 'error',
@@ -102,6 +98,13 @@ export default {
             if (!taskStore.requestProcessing) {
                 taskStore.requestProcessing = true;
                 taskStore.deleteTask(id)
+                    .then(() => {
+                        this.alertStore.setAlert({
+                            type: 'info',
+                            message: 'Task Deleted',
+                            key: this.alertStore.generateKey(),
+                        });
+                    })
                     .catch((error) => {
                         this.alertStore.setAlert({
                             type: 'error',
@@ -113,5 +116,3 @@ export default {
         },
     }};
 </script>
-
-./components/Loader/Loader.vue

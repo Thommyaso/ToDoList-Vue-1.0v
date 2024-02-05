@@ -21,6 +21,7 @@ export const taskStore = reactive({
         return await axios.post(this.baseUrl, {task})
             .then((result) => {
                 this.tasks.push(result.data.createdTask);
+                return this;
             })
 
             .finally(() => {
@@ -32,6 +33,7 @@ export const taskStore = reactive({
         return await axios.delete(`${this.baseUrl}${id}`)
             .then(() => {
                 this.tasks = this.tasks.filter((task) => task.id !== id);
+                return this;
             })
             .finally(() => {
                 this.requestProcessing = false;
