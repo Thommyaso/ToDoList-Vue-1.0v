@@ -1,0 +1,43 @@
+/* .alert {
+    &--hidden{
+        visibility: hidden;
+    }
+
+    &--visible{
+        visibility: visible;
+    }
+
+    &--error{
+        color: red;
+        font-weight: 600;
+    }
+
+    &--info{
+        color: green;
+    }
+} */
+
+.loader {
+    &--visible {
+        visibility: visible;
+
+        height:50px;
+        width:50px;
+        //background-color:red;
+        border-radius:50%;
+        border:5px solid #ddd;
+        border-top-color:#333;
+        animation:rotate 1s infinite;
+        }
+        @keyframes rotate{
+            100%{
+                rotate:360deg;
+            }
+        }
+
+    &--hidden {
+        visibility: hidden;
+    }
+
+}
+

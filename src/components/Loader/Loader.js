@@ -1,9 +1,9 @@
-import MessageConfig from './MessageConfig.vue';
+import Loader from './Loader.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
     title: 'Example/Alert',
-    component: MessageConfig,
+    component: Loader,
     tags: ['autodocs'],
     argTypes: {
         classes: {control: {type: null}},

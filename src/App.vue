@@ -1,9 +1,9 @@
 
 <template>
   <div class="container" id="listContainer">
-    <!-- <MessageConfig
-        :message="'Loading...'"
-    /> -->
+    <Loader
+        :visible="showLoader"
+    />
       <ul class="container__list">
         <LiEl
           v-for="task in taskStore.tasks"
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-// import MessageConfig from './components/MessageConfig/MessageConfig.vue';
+import Loader from './components/Loader/Loader.vue';
 import LiEl from './components/LiEl/LiEl.vue';
 import TaskForm from './components/TaskForm/TaskForm.vue';
 import Alert from './components/Alert/Alert.vue';
@@ -42,13 +42,14 @@ export default {
         return {
             taskStore,
             alertStore,
+            showLoader: false,
         };
     },
     components: {
         LiEl,
         TaskForm,
         Alert,
-        // MessageConfig,
+        Loader,
     },
     computed: {
         alertClasses() {
@@ -61,10 +62,7 @@ export default {
         },
     },
     mounted() {
-        /* this.taskStore.setAlert({
-            error: false,
-            message: 'Loading...',
-        }); */
+        this.showLoader = true;
         this.taskStore.retriveTasks()
             .catch((error) => {
                 this.alertStore.setAlert({
@@ -72,6 +70,9 @@ export default {
                     message: error.message,
                     key: this.alertStore.generateKey(),
                 });
+            })
+            .finally(() => {
+                this.showLoader = false;
             });
 
     },
@@ -113,3 +114,4 @@ export default {
     }};
 </script>
 
+./components/Loader/Loader.vue
