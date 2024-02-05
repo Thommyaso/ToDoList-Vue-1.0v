@@ -1,0 +1,20 @@
+.alert {
+    &--hidden {
+        visibility: hidden;
+    }
+
+    &--error {
+        visibility: visible;
+        color: red;
+    }
+
+    &--info {
+        visibility: visible;
+        color: green;
+    }
+
+    &--warning {
+        visibility: visible;
+        color: orange;
+    }
+}

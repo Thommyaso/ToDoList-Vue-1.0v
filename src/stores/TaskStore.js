@@ -3,51 +3,17 @@ import axios from 'axios';
 
 export const taskStore = reactive({
     tasks: [],
-    alert: {
-        display: false,
-        error: false,
-        message: '',
-    },
     requestProcessing: false,
     baseUrl: 'http://localhost:3000/task/',
 
-    resetAlert() {
-        this.alert.message = '';
-        this.alert.display = false;
-        this.error = false;
-    },
-
-    setAlert(data) {
-        this.alert.display = true;
-        this.alert.error = data.error;
-        this.alert.message = data.message;
-    },
-
     validateTask(task) {
-        if (task.length > 0) {
-            return true;
-        }
-        this.setAlert({
-            error: true,
-            message: 'Invalid task',
-        });
-        return false;
+        return task.length > 0;
     },
 
     async retriveTasks() {
         return await axios.get(this.baseUrl)
             .then((result) => {
                 this.tasks = result.data;
-                this.resetAlert();
-            })
-            .catch((error) => {
-                this.setAlert(
-                    {
-                        error: true,
-                        message: error.message,
-                    },
-                );
-                console.log(error);
             });
     },
 
@@ -56,15 +22,7 @@ export const taskStore = reactive({
             .then((result) => {
                 this.tasks.push(result.data.createdTask);
             })
-            .catch((error) => {
-                this.setAlert(
-                    {
-                        error: true,
-                        message: error.message,
-                    },
-                );
-                console.log(error);
-            })
+
             .finally(() => {
                 this.requestProcessing = false;
             });
@@ -74,15 +32,6 @@ export const taskStore = reactive({
         return await axios.delete(`${this.baseUrl}${id}`)
             .then(() => {
                 this.tasks = this.tasks.filter((task) => task.id !== id);
-            })
-            .catch((error) => {
-                this.setAlert(
-                    {
-                        error: true,
-                        message: error.message,
-                    },
-                );
-                console.log(error);
             })
             .finally(() => {
                 this.requestProcessing = false;
