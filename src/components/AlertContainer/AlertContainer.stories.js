@@ -6,24 +6,29 @@ export default {
     component: AlertContainer,
     tags: ['autodocs'],
     argTypes: {
-        alertStore: {control: {type: null}},
+        alerts: {control: {type: null}},
+        processRemove: {control: {type: null}},
     },
 };
 
 export const AlertContainer01 = {
     args: {
-        alertStore: {
-            alerts: [
-                {type: 'error',
-                    message: 'Network error'},
-                {type: 'error',
-                    message: 'Invalid task'},
-                {type: 'info',
-                    message: 'Task Added'},
-            ],
-            removeAlertElement() {
-                return;
+        alerts: [
+            {
+                type: 'error',
+                message: 'Network error',
             },
+            {
+                type: 'error',
+                message: 'Invalid task',
+            },
+            {
+                type: 'info',
+                message: 'Task Added',
+            },
+        ],
+        processRemove() {
+            return;
         },
     },
 };

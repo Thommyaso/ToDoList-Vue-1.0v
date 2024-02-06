@@ -15,10 +15,8 @@ import AlertElement from '../AlertElement/AlertElement.vue';
 
 export default {
     props: {
-        alertStore: Object,
         alerts: Array,
         processRemove: Function,
-
     },
     components: {
         AlertElement,
