@@ -1,26 +1,27 @@
 <template>
     <AlertContainer
-    :alertStore="alertStore"
+        :alertStore="alertStore"
     />
     <div class="container">
-      <LoadingIndicator
-          :visible="showLoadingIndicator"
-      />
-        <ul class="container__list">
-          <ListElement
-            v-for="task in taskStore.tasks"
-            :key="task.id"
-            :task="task.task"
-            @deleteClicked = "processDeleteClick(task.id)"
-            :showDeletingIndicator="showDeletingIndicator"
-          />
+        <LoadingIndicator
+            v-if="showLoadingIndicator"
+            :visible="showLoadingIndicator"
+        />
+        <ul class="container__list" v-else>
+            <ListElement
+                v-for="task in taskStore.tasks"
+                :key="task.id"
+                :task="task.task"
+                @deleteClicked = "processDeleteClick(task.id)"
+                :showDeletingIndicator="showDeletingIndicator"
+            />
         </ul>
         <TaskForm
-          @onTask = "processNewTask"
-          :processingTask="this.taskStore.requestProcessing"
+            @onTask = "processNewTask"
+            :processingTask="this.taskStore.requestProcessing"
         />
     </div>
-  </template>
+</template>
 
 <script>
 import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator.vue';
