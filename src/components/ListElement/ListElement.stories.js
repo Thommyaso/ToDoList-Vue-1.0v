@@ -1,9 +1,9 @@
-import LiEl from './LiEl.vue';
+import ListElement from './ListElement.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
     title: 'Example/ListEl',
-    component: LiEl,
+    component: ListElement,
     tags: ['autodocs'],
     argTypes: {
         task: {

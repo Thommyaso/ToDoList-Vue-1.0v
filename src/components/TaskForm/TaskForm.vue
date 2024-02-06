@@ -6,20 +6,20 @@
             class="container__textarea"
             placeholder="Type-in task..."
         ></textarea>
-        <ButtonConfig
+        <ButtonElement
             :btnClass="setBtnClass"
-            @click = "newTask"
+            @click = "handleSubmitClick"
         />
     </form>
 </template>
 
 <script>
 import './TaskForm.scss';
-import ButtonConfig from '../ButtonConfig/ButtonConfig.vue';
+import ButtonElement from '../ButtonElement/ButtonElement.vue';
 
 export default {
     components: {
-        ButtonConfig,
+        ButtonElement,
     },
     computed: {
         setBtnClass() {
@@ -30,14 +30,13 @@ export default {
         },
     },
     props: {
-        disableBtn: Boolean,
         processingTask: Boolean,
     },
     mounted() {
         this.textarea = this.$refs.myTextarea;
     },
     methods: {
-        newTask() {
+        handleSubmitClick() {
             if (!this.processingTask) {
                 this.$emit('onTask', this.textarea);
             }

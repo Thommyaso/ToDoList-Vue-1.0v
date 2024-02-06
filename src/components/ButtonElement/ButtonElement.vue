@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import './ButtonConfig.scss';
+import './ButtonElement.scss';
 
 export default {
     props: {

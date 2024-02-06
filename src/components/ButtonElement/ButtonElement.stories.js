@@ -1,9 +1,9 @@
-import ButtonConfig from './ButtonConfig.vue';
+import ButtonElement from './ButtonElement.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/Button',
-    component: ButtonConfig,
+    title: 'Example/ButtonElement',
+    component: ButtonElement,
     tags: ['autodocs'],
     argTypes: {
         btnClass: {

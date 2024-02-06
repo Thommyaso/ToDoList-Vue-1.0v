@@ -1,10 +1,9 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div
     :class="setClass">{{ message }}</div>
 </template>
 <script>
-import './Alert.scss';
+import './AlertElement.scss';
 
 export default {
     props: {
@@ -13,7 +12,7 @@ export default {
     },
     mounted() {
         setTimeout(() => {
-            this.$emit('removeAlert');
+            this.$emit('removeAlertElement');
         }, 3000);
     },
     computed: {

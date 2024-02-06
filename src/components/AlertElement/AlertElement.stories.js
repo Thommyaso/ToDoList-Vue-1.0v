@@ -1,9 +1,9 @@
-import Alert from './Alert.vue';
+import AlertElement from './AlertElement.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/Alert',
-    component: Alert,
+    title: 'Example/AlertElement',
+    component: AlertElement,
     tags: ['autodocs'],
     argTypes: {
         message: {control: 'text'},

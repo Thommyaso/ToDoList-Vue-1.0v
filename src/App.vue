@@ -1,38 +1,38 @@
 <template>
   <div class="container" id="listContainer">
-    <Loader
-        :visible="showLoader"
+    <LoadingIndicator
+        :visible="showLoadingIndicator"
     />
       <ul class="container__list">
-        <LiEl
+        <ListElement
           v-for="task in taskStore.tasks"
           :key="task.id"
           :task="task.task"
-          @deleteClicked = "handleDelete(task.id)"
-          :spinner="spinner"
+          @deleteClicked = "processDeleteClick(task.id)"
+          :showDeletingIndicator="showDeletingIndicator"
         />
       </ul>
       <TaskForm
-        @onTask = "handleTask"
+        @onTask = "processNewTask"
         :processingTask="this.taskStore.requestProcessing"
       />
       <div>
-        <Alert
+        <AlertElement
         v-for="alert in alertStore.alerts"
         :message="alert.message"
         :key="alert.key"
         :type="alert.type"
-        @removeAlert="this.alertStore.removeAlert()"
-        ></Alert>
+        @removeAlertElement="this.alertStore.removeAlertElement()"
+        ></AlertElement>
       </div>
   </div>
 </template>
 
 <script>
-import Loader from './components/Loader/Loader.vue';
-import LiEl from './components/LiEl/LiEl.vue';
+import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator.vue';
+import ListElement from './components/ListElement/ListElement.vue';
 import TaskForm from './components/TaskForm/TaskForm.vue';
-import Alert from './components/Alert/Alert.vue';
+import AlertElement from './components/AlertElement/AlertElement.vue';
 import {taskStore} from './stores/TaskStore';
 import {alertStore} from './stores/AlertStore';
 
@@ -41,34 +41,34 @@ export default {
         return {
             taskStore,
             alertStore,
-            showLoader: false,
-            spinner: false,
+            showLoadingIndicator: false,
+            showDeletingIndicator: false,
         };
     },
     components: {
-        LiEl,
+        ListElement,
         TaskForm,
-        Alert,
-        Loader,
+        AlertElement,
+        LoadingIndicator,
     },
     mounted() {
-        this.showLoader = true;
+        this.showLoadingIndicator = true;
         this.taskStore.retriveTasks()
             .catch((error) => {
-                this.alertStore.setAlert({
+                this.alertStore.setAlertElement({
                     type: 'error',
                     message: error.message,
                     key: this.alertStore.generateKey(),
                 });
             })
             .finally(() => {
-                this.showLoader = false;
+                this.showLoadingIndicator = false;
             });
     },
     methods: {
-        handleTask(data) {
+        processNewTask(data) {
             if (!taskStore.validateTask(data.value)) {
-                this.alertStore.setAlert({
+                this.alertStore.setAlertElement({
                     type: 'error',
                     message: 'Invalid task',
                     key: this.alertStore.generateKey(),
@@ -78,7 +78,7 @@ export default {
             if (!taskStore.requestProcessing) {
                 taskStore.submitTask(data.value)
                     .then(() => {
-                        this.alertStore.setAlert({
+                        this.alertStore.setAlertElement({
                             type: 'info',
                             message: 'Task Added',
                             key: this.alertStore.generateKey(),
@@ -86,7 +86,7 @@ export default {
                         data.value = '';
                     })
                     .catch((error) => {
-                        this.alertStore.setAlert({
+                        this.alertStore.setAlertElement({
                             type: 'error',
                             message: error.message,
                             key: this.alertStore.generateKey(),
@@ -94,19 +94,19 @@ export default {
                     });
             }
         },
-        handleDelete(id) {
-            this.spinner = true;
+        processDeleteClick(id) {
+            this.showDeletingIndicator = true;
             taskStore.deleteTask(id)
                 .then(() => {
-                    this.alertStore.setAlert({
+                    this.alertStore.setAlertElement({
                         type: 'info',
                         message: 'Task Deleted',
                         key: this.alertStore.generateKey(),
                     });
                 })
                 .catch((error) => {
-                    this.spinner = false;
-                    this.alertStore.setAlert({
+                    this.showDeletingIndicator = false;
+                    this.alertStore.setAlertElement({
                         type: 'error',
                         message: error.message,
                         key: this.alertStore.generateKey(),

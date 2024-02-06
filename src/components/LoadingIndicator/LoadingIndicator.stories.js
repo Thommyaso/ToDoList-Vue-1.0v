@@ -1,9 +1,9 @@
-import Loader from './Loader.vue';
+import LoadingIndicator from './LoadingIndicator.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/Loader',
-    component: Loader,
+    title: 'Example/LoadingIndicator',
+    component: LoadingIndicator,
     tags: ['autodocs'],
     argTypes: {
         visible: {
@@ -12,7 +12,7 @@ export default {
     },
 };
 
-export const InitLoader = {
+export const InitLoadingIndicator = {
     args: {
         visible: true,
     },

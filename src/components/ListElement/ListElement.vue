@@ -1,24 +1,24 @@
 <template>
     <li class="container__listEl">
         <p class="container__paragraph">{{ task }}</p>
-        <ButtonConfig
+        <ButtonElement
             :btnClass="setBtnClass"
-            @click="deleteTask"
+            @click="handleDeleteClick"
         />
     </li>
 </template>
 
 <script>
-import './LiEl.scss';
-import ButtonConfig from '../ButtonConfig/ButtonConfig.vue';
+import './ListElement.scss';
+import ButtonElement from '../ButtonElement/ButtonElement.vue';
 
 export default {
     components: {
-        ButtonConfig,
+        ButtonElement,
     },
     computed: {
         setBtnClass() {
-            if (this.deleteProcessing && this.spinner) {
+            if (this.deleteProcessing && this.showDeletingIndicator) {
                 return 'btn--loading';
             }
             return 'btn--delete';
@@ -30,19 +30,19 @@ export default {
         };
     },
     updated() {
-        if (this.deleteProcessing && !this.spinner) {
+        if (this.deleteProcessing && !this.showDeletingIndicator) {
             this.deleteProcessing = false;
         }
     },
     props: {
         task: String,
-        spinner: {
+        showDeletingIndicator: {
             type: Boolean,
             default: false,
         },
     },
     methods: {
-        deleteTask() {
+        handleDeleteClick() {
             if (!this.deleteProcessing) {
                 this.deleteProcessing = true;
                 this.$emit('deleteClicked');

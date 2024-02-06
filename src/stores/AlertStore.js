@@ -7,10 +7,10 @@ export const alertStore = reactive({
         this.key++;
         return this.key;
     },
-    setAlert(obj) {
+    setAlertElement(obj) {
         this.alerts.push(obj);
     },
-    removeAlert() {
+    removeAlertElement() {
         this.alerts.shift();
     },
 });
