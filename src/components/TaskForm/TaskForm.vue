@@ -38,6 +38,13 @@ export default {
     methods: {
         handleSubmitClick() {
             if (!this.processingTask) {
+                /* if (!this.taskStore.validateTask(data.value)) {
+                this.alertStore.setAlertElement({
+                    type: 'error',
+                    message: 'Invalid task',
+                    key: this.alertStore.generateKey(),
+                });
+                return; */
                 this.$emit('onTask', this.textarea);
             }
         },

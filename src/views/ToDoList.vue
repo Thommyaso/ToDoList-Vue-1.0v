@@ -1,6 +1,7 @@
 <template>
     <AlertContainer
-        :alertStore="alertStore"
+        :alerts="alerts"
+        :processRemove="removeAlert"
     />
     <div class="container">
         <LoadingIndicator
@@ -9,7 +10,7 @@
         />
         <ul class="container__list" v-else>
             <ListElement
-                v-for="task in taskStore.tasks"
+                v-for="task in tasks"
                 :key="task.id"
                 :task="task.task"
                 @deleteClicked = "processDeleteClick(task.id)"
@@ -18,27 +19,31 @@
         </ul>
         <TaskForm
             @onTask = "processNewTask"
-            :processingTask="this.taskStore.requestProcessing"
+            :processingTask="requestProcessing"
         />
     </div>
 </template>
 
 <script>
-import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator.vue';
-import ListElement from '../components/ListElement/ListElement.vue';
-import TaskForm from '../components/TaskForm/TaskForm.vue';
+import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator.vue';
+import ListElement from '@/components/ListElement/ListElement.vue';
+import TaskForm from '@/components/TaskForm/TaskForm.vue';
 import AlertContainer from '@/components/AlertContainer/AlertContainer.vue';
-import {taskStore} from '../stores/TaskStore';
-import {alertStore} from '../stores/AlertStore';
+import {mapActions, mapState, mapMutations} from 'vuex';
 
 export default {
     data() {
         return {
-            taskStore,
-            alertStore,
             showLoadingIndicator: false,
             showDeletingIndicator: false,
         };
+    },
+    computed: {
+        ...mapState({
+            alerts: (state) => state.AlertModule.alerts,
+            tasks: (state) => state.TaskModule.tasks,
+            requestProcessing: (state) => state.TaskModule.requestProcessing,
+        }),
     },
     components: {
         ListElement,
@@ -48,12 +53,12 @@ export default {
     },
     mounted() {
         this.showLoadingIndicator = true;
-        this.taskStore.retriveTasks()
+        this.retriveTasks()
             .catch((error) => {
-                this.alertStore.setAlertElement({
+                this.addAlert({
                     type: 'error',
                     message: error.message,
-                    key: this.alertStore.generateKey(),
+                    key: this.generateKey(),
                 });
             })
             .finally(() => {
@@ -61,50 +66,53 @@ export default {
             });
     },
     methods: {
+        ...mapMutations('AlertModule', ['addAlert', 'removeAlert']),
+        ...mapActions('TaskModule', ['retriveTasks', 'submitTask', 'deleteTask']),
+        ...mapActions('AlertModule', ['generateKey']),
         processNewTask(data) {
-            if (!taskStore.validateTask(data.value)) {
+            /* if (!this.taskStore.validateTask(data.value)) {
                 this.alertStore.setAlertElement({
                     type: 'error',
                     message: 'Invalid task',
                     key: this.alertStore.generateKey(),
                 });
                 return;
-            }
-            if (!taskStore.requestProcessing) {
-                taskStore.submitTask(data.value)
+            } */
+            if (!this.requestProcessing) {
+                this.submitTask(data.value)
                     .then(() => {
-                        this.alertStore.setAlertElement({
+                        this.addAlert({
                             type: 'info',
                             message: 'Task Added',
-                            key: this.alertStore.generateKey(),
+                            key: this.generateKey(),
                         });
                         data.value = '';
                     })
                     .catch((error) => {
-                        this.alertStore.setAlertElement({
+                        this.addAlert({
                             type: 'error',
                             message: error.message,
-                            key: this.alertStore.generateKey(),
+                            key: this.generateKey(),
                         });
                     });
             }
         },
         processDeleteClick(id) {
             this.showDeletingIndicator = true;
-            taskStore.deleteTask(id)
+            this.deleteTask(id)
                 .then(() => {
-                    this.alertStore.setAlertElement({
+                    this.addAlert({
                         type: 'info',
                         message: 'Task Deleted',
-                        key: this.alertStore.generateKey(),
+                        key: this.generateKey(),
                     });
                 })
                 .catch((error) => {
                     this.showDeletingIndicator = false;
-                    this.alertStore.setAlertElement({
+                    this.addAlert({
                         type: 'error',
                         message: error.message,
-                        key: this.alertStore.generateKey(),
+                        key: this.generateKey(),
                     });
                 });
         },

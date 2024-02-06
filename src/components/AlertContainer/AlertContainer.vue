@@ -1,11 +1,11 @@
 <template>
     <div class="alertContainer">
         <AlertElement
-          v-for="alert in alertStore.alerts"
+          v-for="alert in alerts"
           :message="alert.message"
           :key="alert.key"
           :type="alert.type"
-          @removeAlertElement="this.alertStore.removeAlertElement()"
+          @removeAlertElement="processRemove"
           ></AlertElement>
     </div>
 </template>
@@ -16,6 +16,8 @@ import AlertElement from '../AlertElement/AlertElement.vue';
 export default {
     props: {
         alertStore: Object,
+        alerts: Array,
+        processRemove: Function,
 
     },
     components: {
