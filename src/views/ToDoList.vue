@@ -69,15 +69,15 @@ export default {
         ...mapMutations('AlertModule', ['addAlert', 'removeAlert']),
         ...mapActions('TaskModule', ['retriveTasks', 'submitTask', 'deleteTask']),
         ...mapActions('AlertModule', ['generateKey']),
-        processNewTask(data) {
-            /* if (!this.taskStore.validateTask(data.value)) {
-                this.alertStore.setAlertElement({
+        processNewTask(data, validation) {
+            if (!validation) {
+                this.addAlert({
                     type: 'error',
                     message: 'Invalid task',
-                    key: this.alertStore.generateKey(),
+                    key: this.generateKey(),
                 });
                 return;
-            } */
+            }
             if (!this.requestProcessing) {
                 this.submitTask(data.value)
                     .then(() => {
