@@ -9,23 +9,24 @@ export default {
         btnClass: {
             control: {type: null},
         },
-        isDisabled: {
-            control: 'boolean',
-        },
     },
 };
 
 export const Delete = {
     args: {
         btnClass: 'btn--delete',
-        isDisabled: false,
     },
 };
 
 export const Add = {
     args: {
         btnClass: 'btn--add',
-        isDisabled: false,
+    },
+};
+
+export const Loading = {
+    args: {
+        btnClass: 'btn--loading',
     },
 };
 
