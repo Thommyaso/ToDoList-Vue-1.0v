@@ -31,6 +31,12 @@ export default {
     },
     props: {
         processingTask: Boolean,
+        retainTask: Boolean,
+    },
+    updated() {
+        if (!this.retainTask) {
+            this.textarea.value = '';
+        }
     },
     mounted() {
         this.textarea = this.$refs.myTextarea;
@@ -38,7 +44,7 @@ export default {
     methods: {
         handleSubmitClick() {
             if (!this.processingTask) {
-                this.$emit('onTask', this.textarea, this.validateTask());
+                this.$emit('onTask', this.textarea.value, this.validateTask());
             }
         },
         validateTask() {

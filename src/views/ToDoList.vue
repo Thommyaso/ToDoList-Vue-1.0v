@@ -20,6 +20,7 @@
         <TaskForm
             @onTask = "processNewTask"
             :processingTask="requestProcessing"
+            :retainTask="retainTask"
         />
     </div>
 </template>
@@ -36,6 +37,7 @@ export default {
         return {
             showLoadingIndicator: false,
             showDeletingIndicator: false,
+            retainTask: true,
         };
     },
     computed: {
@@ -70,6 +72,7 @@ export default {
         ...mapActions('TaskModule', ['retriveTasks', 'submitTask', 'deleteTask']),
         ...mapActions('AlertModule', ['generateKey']),
         processNewTask(data, validation) {
+            this.retainTask = true;
             if (!validation) {
                 this.addAlert({
                     type: 'error',
@@ -79,14 +82,14 @@ export default {
                 return;
             }
             if (!this.requestProcessing) {
-                this.submitTask(data.value)
+                this.submitTask(data)
                     .then(() => {
                         this.addAlert({
                             type: 'info',
                             message: 'Task Added',
                             key: this.generateKey(),
                         });
-                        data.value = '';
+                        this.retainTask = false;
                     })
                     .catch((error) => {
                         this.addAlert({
@@ -94,6 +97,9 @@ export default {
                             message: error.message,
                             key: this.generateKey(),
                         });
+                    })
+                    .finally(() => {
+                        this.retainTask = true;
                     });
             }
         },
