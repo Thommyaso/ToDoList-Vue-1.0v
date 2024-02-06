@@ -18,12 +18,12 @@ export const taskStore = reactive({
     },
 
     async submitTask(task) {
+        this.requestProcessing = true;
         return await axios.post(this.baseUrl, {task})
             .then((result) => {
                 this.tasks.push(result.data.createdTask);
                 return this;
             })
-
             .finally(() => {
                 this.requestProcessing = false;
             });
@@ -34,9 +34,6 @@ export const taskStore = reactive({
             .then(() => {
                 this.tasks = this.tasks.filter((task) => task.id !== id);
                 return this;
-            })
-            .finally(() => {
-                this.requestProcessing = false;
             });
     },
 });

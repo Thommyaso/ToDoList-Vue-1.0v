@@ -1,4 +1,3 @@
-
 <template>
   <div class="container" id="listContainer">
     <Loader
@@ -10,12 +9,12 @@
           :key="task.id"
           :task="task.task"
           @deleteClicked = "handleDelete(task.id)"
-          :disableBtn = "taskStore.requestProcessing"
+          :spinner="spinner"
         />
       </ul>
       <TaskForm
         @onTask = "handleTask"
-        :disableBtn = "taskStore.requestProcessing"
+        :processingTask="this.taskStore.requestProcessing"
       />
       <div>
         <Alert
@@ -43,6 +42,7 @@ export default {
             taskStore,
             alertStore,
             showLoader: false,
+            spinner: false,
         };
     },
     components: {
@@ -67,7 +67,7 @@ export default {
     },
     methods: {
         handleTask(data) {
-            if (!taskStore.validateTask(data)) {
+            if (!taskStore.validateTask(data.value)) {
                 this.alertStore.setAlert({
                     type: 'error',
                     message: 'Invalid task',
@@ -76,14 +76,14 @@ export default {
                 return;
             }
             if (!taskStore.requestProcessing) {
-                taskStore.requestProcessing = true;
-                taskStore.submitTask(data)
+                taskStore.submitTask(data.value)
                     .then(() => {
                         this.alertStore.setAlert({
                             type: 'info',
                             message: 'Task Added',
                             key: this.alertStore.generateKey(),
                         });
+                        data.value = '';
                     })
                     .catch((error) => {
                         this.alertStore.setAlert({
@@ -95,24 +95,23 @@ export default {
             }
         },
         handleDelete(id) {
-            if (!taskStore.requestProcessing) {
-                taskStore.requestProcessing = true;
-                taskStore.deleteTask(id)
-                    .then(() => {
-                        this.alertStore.setAlert({
-                            type: 'info',
-                            message: 'Task Deleted',
-                            key: this.alertStore.generateKey(),
-                        });
-                    })
-                    .catch((error) => {
-                        this.alertStore.setAlert({
-                            type: 'error',
-                            message: error.message,
-                            key: this.alertStore.generateKey(),
-                        });
+            this.spinner = true;
+            taskStore.deleteTask(id)
+                .then(() => {
+                    this.alertStore.setAlert({
+                        type: 'info',
+                        message: 'Task Deleted',
+                        key: this.alertStore.generateKey(),
                     });
-            }
+                })
+                .catch((error) => {
+                    this.spinner = false;
+                    this.alertStore.setAlert({
+                        type: 'error',
+                        message: error.message,
+                        key: this.alertStore.generateKey(),
+                    });
+                });
         },
     }};
 </script>
