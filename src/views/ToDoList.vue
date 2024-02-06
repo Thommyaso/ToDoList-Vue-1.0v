@@ -1,4 +1,7 @@
 <template>
+    <AlertContainer
+    :alertStore="alertStore"
+    />
     <div class="container">
       <LoadingIndicator
           :visible="showLoadingIndicator"
@@ -16,15 +19,6 @@
           @onTask = "processNewTask"
           :processingTask="this.taskStore.requestProcessing"
         />
-        <div>
-          <AlertElement
-          v-for="alert in alertStore.alerts"
-          :message="alert.message"
-          :key="alert.key"
-          :type="alert.type"
-          @removeAlertElement="this.alertStore.removeAlertElement()"
-          ></AlertElement>
-        </div>
     </div>
   </template>
 
@@ -32,7 +26,7 @@
 import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator.vue';
 import ListElement from '../components/ListElement/ListElement.vue';
 import TaskForm from '../components/TaskForm/TaskForm.vue';
-import AlertElement from '../components/AlertElement/AlertElement.vue';
+import AlertContainer from '@/components/AlertContainer/AlertContainer.vue';
 import {taskStore} from '../stores/TaskStore';
 import {alertStore} from '../stores/AlertStore';
 
@@ -48,8 +42,8 @@ export default {
     components: {
         ListElement,
         TaskForm,
-        AlertElement,
         LoadingIndicator,
+        AlertContainer,
     },
     mounted() {
         this.showLoadingIndicator = true;

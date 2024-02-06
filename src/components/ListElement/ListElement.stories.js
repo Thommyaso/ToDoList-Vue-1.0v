@@ -2,7 +2,7 @@ import ListElement from './ListElement.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/ListEl',
+    title: 'Example/ListElement',
     component: ListElement,
     tags: ['autodocs'],
     argTypes: {
@@ -12,7 +12,7 @@ export default {
     },
 };
 
-export const ListElement = {
+export const ListElement01 = {
     args: {
         task: 'Practice coding for 5h',
     },

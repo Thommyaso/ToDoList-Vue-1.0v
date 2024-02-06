@@ -1,6 +1,7 @@
 <template>
-    <div
-    :class="setClass">{{ message }}</div>
+        <div
+            :class="setClass"
+        >{{ message }}</div>
 </template>
 <script>
 import './AlertElement.scss';
