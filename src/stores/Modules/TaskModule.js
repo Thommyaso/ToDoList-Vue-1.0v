@@ -6,7 +6,7 @@ export default {
         return {
             tasks: [],
             requestProcessing: false,
-            baseUrl: 'http://localhost:3000/task/',
+            baseUrl: import.meta.env.VITE_URL,
         };
     },
     mutations: {
