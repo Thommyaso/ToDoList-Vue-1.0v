@@ -1,132 +1,183 @@
+$addBtnColor: #095776;
+$defaultDeleteBtnColor: #eb0404;
+$defaultBtnBackground: #fff;
+
 @mixin opacity($opacity){
-  opacity: $opacity;
+    opacity: $opacity;
+}
+
+@mixin alertBtnColor($color){
+    background: $color;
 }
 
 .btn{
-  &--delete {
-    flex-basis: 100px;
-    all: initial;
-    border-radius: 50%;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    width: 26px;
-    height: 26px;
-    background: #fff;
-    cursor: pointer;
-    border: 2px solid #eb0404;
-    @include opacity(1);
-
-    &:after {
-    content: '';
-        top: 50%;
-        left: 50%;
-        position: absolute;
-        transform: translate(-50%, -50%) rotate(-45deg);
-        height: 10%;
-        width: 60%;
-        background: #eb0404;
-    }
-    
-    &:before {
-    content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-        background: #eb0404;
-        height: 10%;
-        width: 60%;
-    }
-    
-    &:hover:before,
-    &:hover:after {
-        background: #fff;
-        transition: 0.17s;
-    }
-    
-    &:hover {
-        background-color: #eb0404;
-        transition: 0.17s;
-    }
-  }
-
-  &--add {
-    all: initial;
-    border-radius: 30%;
-    display: flex;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    width: 26px;
-    height: 26px;
-    background: #fff;
-    cursor: pointer;
-    border: 2px solid #095776;
-
-    &:after {
-      content: '';
-      top: 50%;
-      left: 50%;
-      position: absolute;
-      transform: translate(-50%, -50%);
-      height: 10%;
-      width: 60%;
-      background: #095776;
-    }
-      
-    &:before {
-      content: '';
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #095776;
-      height: 60%;
-      width: 10%;
-    }
-    
-    &:hover:before,
-    &:hover:after {
-      background: #fff;
-      transition: 0.17s;
-    }
-    
-    &:hover {
-      background-color: #095776;
-      transition: 0.17s;
-    }
-  }
-
-  &--disabled {
-    @include opacity(0.2);
-
-    &:hover {
-      cursor:default;
-    }
-  }
-
-  &--loading {
     all: initial;
 
-  &:after {
-    content: " ";
-    display: block;
-    width: 20px;
-    height: 20px;
-    margin: 0px;
-    border-radius: 50%;
-    border: 4px solid #095776;
-    border-color: #095776 transparent #095776 transparent;
-    animation: loader 1.2s linear infinite;
-  }
-  @keyframes loader {
-    0% {
-      transform: rotate(0deg);
+    &--delete {
+        border-radius: 50%;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        width: 26px;
+        height: 26px;
+        background: $defaultBtnBackground;
+        cursor: pointer;
+        border: 2px solid $defaultDeleteBtnColor;
+        @include opacity(1);
+
+        &:after {
+        content: '';
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            height: 10%;
+            width: 60%;
+            background: $defaultDeleteBtnColor;
+        }
+
+        &:before {
+        content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            background: $defaultDeleteBtnColor;
+            height: 10%;
+            width: 60%;
+        }
+
+        &:hover:before,
+        &:hover:after {
+            background: $defaultBtnBackground;
+            transition: 0.17s;
+        }
+
+        &:hover {
+            background-color: $defaultDeleteBtnColor;
+            transition: 0.17s;
+        }
     }
-    100% {
-      transform: rotate(360deg);
+
+    &--add {
+        all: initial;
+        border-radius: 30%;
+        display: flex;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        width: 26px;
+        height: 26px;
+        background: $defaultBtnBackground;
+        cursor: pointer;
+        border: 2px solid $addBtnColor;
+
+        &:after {
+            content: '';
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            height: 10%;
+            width: 60%;
+            background: $addBtnColor;
+        }
+            
+        &:before {
+            content: '';
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: $addBtnColor;
+            height: 60%;
+            width: 10%;
+        }
+
+        &:hover:before,
+        &:hover:after {
+            background: $defaultBtnBackground;
+            transition: 0.17s;
+        }
+
+        &:hover {
+            background-color: $addBtnColor;
+            transition: 0.17s;
+        }
     }
-  }
-}
+
+    &--disabled {
+        @include opacity(0.2);
+
+        &:hover {
+        cursor:default;
+        }
+    }
+
+    &--loading {
+
+        &:after {
+            content: " ";
+            display: block;
+            width: 20px;
+            height: 20px;
+            margin: 0px;
+            border-radius: 50%;
+            border: 4px solid $addBtnColor;
+            border-color: $addBtnColor transparent $addBtnColor transparent;
+            animation: loader 1.2s linear infinite;
+        }
+
+        @keyframes loader {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
+
+    &--alertDelete {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+
+        &:after {
+        content: '';
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            height: 10%;
+            width: 100%;
+        }
+
+        &:before {
+        content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            height: 10%;
+            width: 100%;
+        }
+
+        &-error {
+            &:after,
+            &:before {
+                @include alertBtnColor($defaultDeleteBtnColor)
+            }
+        }
+
+        &-info {
+            &:after,
+            &:before {
+                @include alertBtnColor(green)
+            }
+        }
+    }
 }

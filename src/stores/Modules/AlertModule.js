@@ -1,27 +1,20 @@
+import {v4} from 'uuid';
+
 export default {
     namespaced: true,
     state() {
         return {
-            key: 0,
             alerts: [],
         };
     },
     mutations: {
-        setKey(state) {
-            state.key++;
-        },
         addAlert(state, obj) {
+            obj.id = v4();
             state.alerts.push(obj);
         },
-        removeAlert(state) {
-            state.alerts.shift();
+        removeAlert(state, id) {
+            state.alerts = state.alerts.filter((alert) => alert.id !== id);
         },
 
-    },
-    actions: {
-        generateKey({commit, state}) {
-            commit('setKey');
-            return state.key;
-        },
     },
 };

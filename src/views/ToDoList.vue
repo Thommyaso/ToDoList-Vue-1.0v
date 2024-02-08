@@ -1,8 +1,5 @@
 <template>
-    <AlertContainer
-        :alerts="alerts"
-        :processRemove="removeAlert"
-    />
+    <AlertContainer/>
     <div class="container">
         <LoadingIndicator
             v-if="showLoadingIndicator"
@@ -42,7 +39,6 @@ export default {
     },
     computed: {
         ...mapState({
-            alerts: (state) => state.AlertModule.alerts,
             tasks: (state) => state.TaskModule.tasks,
             requestProcessing: (state) => state.TaskModule.requestProcessing,
         }),
@@ -60,7 +56,6 @@ export default {
                 this.addAlert({
                     type: 'error',
                     message: error.message,
-                    key: this.generateKey(),
                 });
             })
             .finally(() => {
@@ -68,16 +63,14 @@ export default {
             });
     },
     methods: {
-        ...mapMutations('AlertModule', ['addAlert', 'removeAlert']),
+        ...mapMutations('AlertModule', ['addAlert']),
         ...mapActions('TaskModule', ['retriveTasks', 'submitTask', 'deleteTask']),
-        ...mapActions('AlertModule', ['generateKey']),
         processNewTask(data, validation) {
             this.retainTask = true;
             if (!validation) {
                 this.addAlert({
                     type: 'error',
                     message: 'Invalid task',
-                    key: this.generateKey(),
                 });
                 return;
             }
@@ -87,7 +80,6 @@ export default {
                         this.addAlert({
                             type: 'info',
                             message: 'Task Added',
-                            key: this.generateKey(),
                         });
                         this.retainTask = false;
                     })
@@ -95,7 +87,6 @@ export default {
                         this.addAlert({
                             type: 'error',
                             message: error.message,
-                            key: this.generateKey(),
                         });
                     })
                     .finally(() => {
@@ -110,7 +101,6 @@ export default {
                     this.addAlert({
                         type: 'info',
                         message: 'Task Deleted',
-                        key: this.generateKey(),
                     });
                 })
                 .catch((error) => {
@@ -118,7 +108,6 @@ export default {
                     this.addAlert({
                         type: 'error',
                         message: error.message,
-                        key: this.generateKey(),
                     });
                 });
         },

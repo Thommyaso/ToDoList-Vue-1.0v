@@ -1,5 +1,5 @@
 <template>
-   <button :class="btnClass" type="button"></button>
+   <button :class="setBtnClass" type="button"></button>
 </template>
 
 <script>
@@ -7,7 +7,16 @@ import './ButtonElement.scss';
 
 export default {
     props: {
-        btnClass: String,
+        btnClass: [Array, String],
+    },
+
+    computed: {
+        setBtnClass() {
+            if (this.btnClass) {
+                return ['btn', this.btnClass];
+            }
+            return 'btn';
+        },
     },
 };
 </script>

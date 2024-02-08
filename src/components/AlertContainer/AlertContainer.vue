@@ -3,23 +3,28 @@
         <AlertElement
           v-for="alert in alerts"
           :message="alert.message"
-          :key="alert.key"
+          :key="alert.id"
           :type="alert.type"
-          @removeAlertElement="processRemove"
+          @removeAlertElement="removeAlert(alert.id)"
           ></AlertElement>
     </div>
 </template>
 <script>
 import './AlertContainer.scss';
 import AlertElement from '../AlertElement/AlertElement.vue';
+import {mapState, mapMutations} from 'vuex';
 
 export default {
-    props: {
-        alerts: Array,
-        processRemove: Function,
-    },
     components: {
         AlertElement,
+    },
+    computed: {
+        ...mapState({
+            alerts: (state) => state.AlertModule.alerts,
+        }),
+    },
+    methods: {
+        ...mapMutations('AlertModule', ['removeAlert']),
     },
 };
 </script>

@@ -4,10 +4,16 @@
                 v-if="showAlert"
                 :class="['alertWrapper', setWrapperClass]"
             >
-                <div class="alertWrapper__alertImg">
-                    <img style="height: 20px; width: 20px;" :src="setSvgImage">
+                <div class="alertWrapper__alertImgContainer">
+                    <img class="alertWrapper__alertImg" :src="setSvgImage">
                 </div>
                 <h3 :class="['alertWrapper__header', setHeaderClass]">{{message}}</h3>
+                <div class="alertWrapper__btnContainer">
+                    <ButtonElement
+                        :btnClass="['btn--alertDelete', setBtnClass]"
+                        @click="handleDeleteClick"
+                    />
+                </div>
             </div>
         </Transition>
 </template>
@@ -15,6 +21,7 @@
 import './AlertElement.scss';
 import infoImg from '@/components/assets/infoImg.svg';
 import errorImg from '@/components/assets/errorImg.svg';
+import ButtonElement from '../ButtonElement/ButtonElement.vue';
 
 export default {
     data() {
@@ -27,13 +34,16 @@ export default {
     props: {
         message: String,
         type: String,
-        index: Number,
+        index: String,
+    },
+    components: {
+        ButtonElement,
     },
     mounted() {
         this.showAlert = true;
         setTimeout(() => {
             this.showAlert = false;
-        }, 3000);
+        }, 15000);
     },
     computed: {
         setWrapperClass() {
@@ -67,10 +77,23 @@ export default {
             }
             return '';
         },
+
+        setBtnClass() {
+            if (this.type === 'error') {
+                return 'btn--alertDelete-error';
+            } else if (this.type === 'info') {
+                return 'btn--alertDelete-info';
+            }
+            return null;
+        },
     },
     methods: {
         removeAlert() {
             this.$emit('removeAlertElement');
+        },
+
+        handleDeleteClick() {
+            this.showAlert = false;
         },
     },
 };

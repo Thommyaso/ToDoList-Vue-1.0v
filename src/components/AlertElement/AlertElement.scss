@@ -55,11 +55,23 @@ $wrapperHeight: 3.75rem;
         }
     }
 
-    &__alertImg {
+    &__alertImgContainer {
         padding: 0.8rem 0.5rem 0 0.5rem;
         height: 100%;
         display: inline-flex;
-    }    
+    } 
+
+    &__alertImg {
+        height: 
+        20px; 
+        width: 20px;
+    }
+    
+    &__btnContainer {
+        display: inline-flex;
+        margin-right: 0.2rem;
+        margin-top: 0.2rem;
+    }
 }
 
 .v {
@@ -88,5 +100,6 @@ $wrapperHeight: 3.75rem;
         border-width: 0;
         height: 0;
         margin-bottom: 0;
+        visibility: hidden;
     }
 }
