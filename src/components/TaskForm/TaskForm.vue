@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import './TaskForm.scss';
-import ButtonElement from '../ButtonElement/ButtonElement.vue';
+import '@/components/TaskForm/TaskForm.scss';
+import ButtonElement from '@/components/ButtonElement/ButtonElement.vue';
 
 export default {
     components: {

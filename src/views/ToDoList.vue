@@ -1,5 +1,5 @@
 <template>
-    <AlertContainer/>
+    <AlertContainerView/>
     <div class="container">
         <LoadingIndicator
             v-if="showLoadingIndicator"
@@ -26,7 +26,7 @@
 import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator.vue';
 import ListElement from '@/components/ListElement/ListElement.vue';
 import TaskForm from '@/components/TaskForm/TaskForm.vue';
-import AlertContainer from '@/components/AlertContainer/AlertContainer.vue';
+import AlertContainerView from '@/views/AlertContainerView.vue';
 import {mapActions, mapState, mapMutations} from 'vuex';
 
 export default {
@@ -47,7 +47,7 @@ export default {
         ListElement,
         TaskForm,
         LoadingIndicator,
-        AlertContainer,
+        AlertContainerView,
     },
     mounted() {
         this.showLoadingIndicator = true;

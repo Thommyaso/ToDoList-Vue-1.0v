@@ -30,3 +30,15 @@ export const Loading = {
     },
 };
 
+export const AlertDeleteError = {
+    args: {
+        btnClass: ['btn--alertDelete', 'btn--alertDelete-error'],
+    },
+};
+
+export const AlertDeleteInfo = {
+    args: {
+        btnClass: ['btn--alertDelete', 'btn--alertDelete-info'],
+    },
+};
+

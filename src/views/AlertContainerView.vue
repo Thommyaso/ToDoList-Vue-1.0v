@@ -1,17 +1,16 @@
 <template>
-    <div class="alertContainer">
+    <div class="alertContainerView">
         <AlertElement
-          v-for="alert in alerts"
-          :message="alert.message"
-          :key="alert.id"
-          :type="alert.type"
-          @removeAlertElement="removeAlert(alert.id)"
-          ></AlertElement>
+            v-for="alert in alerts"
+            :message="alert.message"
+            :key="alert.id"
+            :type="alert.type"
+            @removeAlertElement="removeAlert(alert.id)"
+        />
     </div>
 </template>
 <script>
-import './AlertContainer.scss';
-import AlertElement from '../AlertElement/AlertElement.vue';
+import AlertElement from '@/components/AlertElement/AlertElement.vue';
 import {mapState, mapMutations} from 'vuex';
 
 export default {

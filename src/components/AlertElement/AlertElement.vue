@@ -1,16 +1,13 @@
 <template>
         <Transition @after-leave="removeAlert">
-            <div
-                v-if="showAlert"
-                :class="['alertWrapper', setWrapperClass]"
-            >
+            <div v-if="showAlert" :class="setWrapperClass">
                 <div class="alertWrapper__alertImgContainer">
                     <img class="alertWrapper__alertImg" :src="setSvgImage">
                 </div>
-                <h3 :class="['alertWrapper__header', setHeaderClass]">{{message}}</h3>
+                <h3 :class="setHeaderClass">{{message}}</h3>
                 <div class="alertWrapper__btnContainer">
                     <ButtonElement
-                        :btnClass="['btn--alertDelete', setBtnClass]"
+                        :btnClass="setBtnClass"
                         @click="handleDeleteClick"
                     />
                 </div>
@@ -18,10 +15,10 @@
         </Transition>
 </template>
 <script>
-import './AlertElement.scss';
+import '@/components/AlertElement/AlertElement.scss';
 import infoImg from '@/components/assets/infoImg.svg';
 import errorImg from '@/components/assets/errorImg.svg';
-import ButtonElement from '../ButtonElement/ButtonElement.vue';
+import ButtonElement from '@/components/ButtonElement/ButtonElement.vue';
 
 export default {
     data() {
@@ -41,31 +38,34 @@ export default {
     },
     mounted() {
         this.showAlert = true;
+        if (import.meta.env.STORYBOOK) {
+            return;
+        }
         setTimeout(() => {
             this.showAlert = false;
-        }, 15000);
+        }, 10000);
     },
     computed: {
         setWrapperClass() {
             if (this.showAlert) {
                 if (this.type === 'error') {
-                    return 'alertWrapper--error';
+                    return ['alertWrapper', 'alertWrapper--error'];
                 } else if (this.type === 'info') {
-                    return 'alertWrapper--info';
+                    return ['alertWrapper', 'alertWrapper--info'];
                 }
             }
-            return 'alertWrapper--hidden';
+            return null;
         },
 
         setHeaderClass() {
             if (this.showAlert) {
                 if (this.type === 'error') {
-                    return 'alertWrapper__header--error';
+                    return ['alertWrapper__header', 'alertWrapper__header--error'];
                 } else if (this.type === 'info') {
-                    return 'alertWrapper__header--info';
+                    return ['alertWrapper__header', 'alertWrapper__header--info'];
                 }
             }
-            return 'alertWrapper__header--hidden';
+            return null;
 
         },
 
@@ -75,14 +75,14 @@ export default {
             } else if (this.type === 'info') {
                 return this.infoImg;
             }
-            return '';
+            return null;
         },
 
         setBtnClass() {
             if (this.type === 'error') {
-                return 'btn--alertDelete-error';
+                return ['btn--alertDelete', 'btn--alertDelete-error'];
             } else if (this.type === 'info') {
-                return 'btn--alertDelete-info';
+                return ['btn--alertDelete', 'btn--alertDelete-info'];
             }
             return null;
         },

@@ -2,7 +2,7 @@
    <div :class="setClass"></div>
 </template>
 <script>
-import './LoadingIndicator.scss';
+import '@/components/LoadingIndicator/LoadingIndicator.scss';
 export default {
     props: ['visible'],
     computed: {

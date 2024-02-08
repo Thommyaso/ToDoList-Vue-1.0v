@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import './ListElement.scss';
-import ButtonElement from '../ButtonElement/ButtonElement.vue';
+import '@/components/ListElement/ListElement.scss';
+import ButtonElement from '@/components/ButtonElement/ButtonElement.vue';
 
 export default {
     components: {
