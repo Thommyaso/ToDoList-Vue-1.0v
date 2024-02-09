@@ -1,22 +1,11 @@
 import express from 'express';
 import pkg from 'body-parser';
+import exampleTasks from './src/exampleTasks.js';
+
 const {json} = pkg;
 import {v4} from 'uuid';
 const app = express();
-let tasks = [
-    {
-        id: '34ec12bd-d5a1-4b55-a66f-228ba2b4e0c4',
-        task: 'go do this',
-    },
-    {
-        id: '71b22a8c-82ee-484a-89a5-72242d9905f5',
-        task: 'go do that',
-    },
-    {
-        id: '87a28615-49e0-4789-8835-332b4d021ffa',
-        task: 'uauauiua',
-    },
-];
+let tasks = [...exampleTasks];
 
 app.use((__req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');

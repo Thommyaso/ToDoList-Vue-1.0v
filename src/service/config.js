@@ -1,3 +1,12 @@
+const setMockService = (string) => {
+    if (string === 'true') {
+        return true;
+    } else if (string === 'false') {
+        return false;
+    }
+    return true;
+};
+
 export default {
-    baseUrl: import.meta.env.VITE_URL || 'http://localhost:3000/task/',
+    setMockService: setMockService(import.meta.env.VITE_MOCKSERVICE),
 };

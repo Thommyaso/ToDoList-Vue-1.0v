@@ -9,43 +9,58 @@
 
 ## Project Setup
 
+### Dependency Setup:
+
+Open terminal and navigate to root directory of the project. Run:
 ```sh
 npm install
 ```
 
-### ENVIROMENT SET UP:   
-
+### Enviroment Setup:   
 #### To create a .env file, follow these steps:
 1. Create a new file named `.env` in the root directory of the project.
 2. Add the required environment variables (see below) to the `.env` file.
 
+> **Reference `.env.example` file available in the repository.**
+
 #### What to Include in the .env File:
 The .env file should include the following variables:
-- `VITE_URL`: The url that will be used by vuex store to send api reqests. This repository has a local server setup in server.js file, if you want to use it simply reference `.env.example` file available in repository.
+
+- `VITE_MOCKSERVICE`: This boolean variable enables you to opt for a local server setup via the server.js file to store tasks, with Vuex store managing its state through API requests. By default, it's set to `true`, facilitating app testing without requiring the server.js file. If you desire to use server you need to set it to `false`
 
 ### Start local server:
 
-This project requires local server to run correctly. Server setup file is stored in root directory in `server.js` file. To run it open terminal and navigate to root directory of the project and run: `node server.js`.
 
-### Compile and Hot-Reload for Development
+If you've configured your setup to use a server in your `.env` file, you'll need to start it. Here's how:
 
-Open another terminal and navigate to root directory of the project. Run:
+- Open your terminal and navigate to the root directory of your project.
+- Run the command: 
+
+```sh
+node server.js
+```
+
+## Start Project:
+
+### To Compile and Hot-Reload for Development:
+
+Open terminal and navigate to root directory of the project. Run:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### To Compile and Minify for Production:
 
-Open another terminal and navigate to root directory of the project. Run:
+Open terminal and navigate to root directory of the project. Run:
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### To Lint with [ESLint](https://eslint.org/):
 
-Open another terminal and navigate to root directory of the project. Run:
+Open terminal and navigate to root directory of the project. Run:
 
 ```sh
 npm run lint

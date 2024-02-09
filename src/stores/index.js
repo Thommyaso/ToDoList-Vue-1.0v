@@ -1,10 +1,12 @@
 import {createStore} from 'vuex';
-import TaskModule from './Modules/TaskModule';
-import AlertModule from './Modules/AlertModule';
+import config from '@/service/config';
+import TaskModule from './modules/TaskModule';
+import MockTaskModule from './modules/MockTaskModule';
+import AlertModule from './modules/AlertModule';
 
 export default createStore({
     modules: {
-        TaskModule,
+        TaskModule: config.setMockService ? MockTaskModule : TaskModule,
         AlertModule,
     },
 });

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '@/service/config';
 
 export default {
     namespaced: true,
@@ -7,7 +6,7 @@ export default {
         return {
             tasks: [],
             requestProcessing: false,
-            baseUrl: config.baseUrl,
+            baseUrl: 'http://localhost:3000/task/',
         };
     },
     mutations: {
