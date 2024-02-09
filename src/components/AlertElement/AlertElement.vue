@@ -26,6 +26,7 @@ export default {
             showAlert: false,
             infoImg: infoImg,
             errorImg: errorImg,
+            timerId: null,
         };
     },
     props: {
@@ -41,9 +42,12 @@ export default {
         if (import.meta.env.STORYBOOK) {
             return;
         }
-        setTimeout(() => {
+        this.timerId = setTimeout(() => {
             this.showAlert = false;
         }, 10000);
+    },
+    beforeUnmount() {
+        clearTimeout(this.timerId);
     },
     computed: {
         setWrapperClass() {

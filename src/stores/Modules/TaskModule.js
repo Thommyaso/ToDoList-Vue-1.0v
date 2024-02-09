@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from '@/service/config';
 
 export default {
     namespaced: true,
@@ -6,7 +7,7 @@ export default {
         return {
             tasks: [],
             requestProcessing: false,
-            baseUrl: import.meta.env.VITE_URL,
+            baseUrl: config.baseUrl,
         };
     },
     mutations: {
