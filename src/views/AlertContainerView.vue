@@ -5,6 +5,7 @@
             :message="alert.message"
             :key="alert.id"
             :type="alert.type"
+            :persistent="alert.persistent"
             @removeAlertElement="removeAlert(alert.id)"
         />
     </div>

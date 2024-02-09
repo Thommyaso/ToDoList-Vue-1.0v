@@ -4,7 +4,10 @@
                 <div class="alertWrapper__alertImgContainer">
                     <img class="alertWrapper__alertImg" :src="setSvgImage">
                 </div>
-                <h3 :class="setHeaderClass">{{message}}</h3>
+                <div :class="setMessageContainerClass">
+                    <h3 class="alertWrapper__header">{{message.title}}</h3>
+                    <p>{{ message.text }}</p>
+                </div>
                 <div class="alertWrapper__btnContainer">
                     <ButtonElement
                         :btnClass="setBtnClass"
@@ -30,21 +33,21 @@ export default {
         };
     },
     props: {
-        message: String,
+        message: Object,
         type: String,
-        index: String,
+        persistent: Boolean,
     },
     components: {
         ButtonElement,
     },
     mounted() {
         this.showAlert = true;
-        if (import.meta.env.STORYBOOK) {
-            return;
+
+        if (!this.persistent) {
+            this.timerId = setTimeout(() => {
+                this.showAlert = false;
+            }, 8000);
         }
-        this.timerId = setTimeout(() => {
-            this.showAlert = false;
-        }, 10000);
     },
     beforeUnmount() {
         clearTimeout(this.timerId);
@@ -61,12 +64,12 @@ export default {
             return null;
         },
 
-        setHeaderClass() {
+        setMessageContainerClass() {
             if (this.showAlert) {
                 if (this.type === 'error') {
-                    return ['alertWrapper__header', 'alertWrapper__header--error'];
+                    return ['alertWrapper__messageContainer', 'alertWrapper__messageContainer--error'];
                 } else if (this.type === 'info') {
-                    return ['alertWrapper__header', 'alertWrapper__header--info'];
+                    return ['alertWrapper__messageContainer', 'alertWrapper__messageContainer--info'];
                 }
             }
             return null;

@@ -49,10 +49,14 @@ export default {
     mounted() {
         this.showLoadingIndicator = true;
         this.retriveTasks()
-            .catch((error) => {
+            .catch(() => {
                 this.addAlert({
                     type: 'error',
-                    message: error.message,
+                    message: {
+                        title: 'Task-storage server offline!',
+                        text: 'Run: \' node server.js \' in the project\'s root directory.',
+                    },
+                    persistent: true,
                 });
             })
             .finally(() => {
@@ -67,7 +71,7 @@ export default {
             if (!validation) {
                 this.addAlert({
                     type: 'error',
-                    message: 'Invalid task',
+                    message: {title: 'Invalid task'},
                 });
                 return;
             }
@@ -76,14 +80,14 @@ export default {
                     .then(() => {
                         this.addAlert({
                             type: 'info',
-                            message: 'Task Added',
+                            message: {title: 'Task Added'},
                         });
                         this.retainTask = false;
                     })
                     .catch((error) => {
                         this.addAlert({
                             type: 'error',
-                            message: error.message,
+                            message: {title: error.message},
                         });
                     })
                     .finally(() => {
@@ -97,14 +101,14 @@ export default {
                 .then(() => {
                     this.addAlert({
                         type: 'info',
-                        message: 'Task Deleted',
+                        message: {title: 'Task Deleted'},
                     });
                 })
                 .catch((error) => {
                     this.showDeletingIndicator = false;
                     this.addAlert({
                         type: 'error',
-                        message: error.message,
+                        message: {title: error.message},
                     });
                 });
         },

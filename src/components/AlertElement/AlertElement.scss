@@ -1,6 +1,7 @@
 $errorColor: rgb(255, 0, 0);
 $infoColor: rgb(0, 128, 0);
-$wrapperHeight: 3.75rem;
+$wrapperHeight: 5rem;
+$containerPadding: 0.8rem;
 
 @mixin color($alertColor, $container: false){
     color: $alertColor;
@@ -16,7 +17,7 @@ $wrapperHeight: 3.75rem;
     margin-bottom: 0.375rem;
     border: 0.063rem solid;
     border-radius: 0.313rem;
-    height: $wrapperHeight;
+    height: fit-content;
     width: fit-content;
 
     &--error {
@@ -27,11 +28,11 @@ $wrapperHeight: 3.75rem;
         @include color($infoColor, true);
     }
 
-    &__header {
+    &__messageContainer {
         margin: 0;
         display: inline-flex;
         height: 100%;
-        padding-top: 0.8rem;
+        padding: $containerPadding 0;
         min-width: 12.5rem;
         max-width: 18.75rem;
         flex-wrap: wrap;
@@ -55,22 +56,25 @@ $wrapperHeight: 3.75rem;
         }
     }
 
+    &__header {
+        font-weight: 600;
+    }
+
     &__alertImgContainer {
-        padding: 0.8rem 0.5rem 0 0.5rem;
+        padding: $containerPadding 0.5rem 0 0.5rem;
         height: 100%;
         display: inline-flex;
     } 
 
     &__alertImg {
-        height: 
-        20px; 
+        height: 20px; 
         width: 20px;
     }
     
     &__btnContainer {
         display: inline-flex;
-        margin-right: 0.2rem;
-        margin-top: 0.2rem;
+        margin-right: 0.3rem;
+        margin-top: 0.3rem;
     }
 }
 
@@ -83,22 +87,23 @@ $wrapperHeight: 3.75rem;
 
     &-enter-active{
         opacity: 1;
-        height: $wrapperHeight;
+        max-height: calc( #{$wrapperHeight} + #{$containerPadding} * 2 );
         visibility: visible;
         transition: all 0.3s ease-in-out ;
     }
 
     &-leave-active {
         transform-origin: center;
+        max-height: calc( #{$wrapperHeight} + #{$containerPadding} * 2 );
         opacity: 1;
         visibility: visible;
-        transition: all 0.15s ease-in-out ;
+        transition: all 0.25s ease-in-out ;
     }
 
     &-leave-to {
         opacity: 0;
         border-width: 0;
-        height: 0;
+        max-height: 0;
         margin-bottom: 0;
         visibility: hidden;
     }

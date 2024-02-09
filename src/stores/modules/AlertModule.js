@@ -10,6 +10,7 @@ export default {
     mutations: {
         addAlert(state, obj) {
             obj.id = v4();
+            obj.persistent = obj.persistent || false;
             state.alerts.push(obj);
         },
         removeAlert(state, id) {
