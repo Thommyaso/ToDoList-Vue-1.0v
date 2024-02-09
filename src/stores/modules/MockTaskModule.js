@@ -1,6 +1,12 @@
 import {v4} from 'uuid';
 import exampleTasks from '@/exampleTasks.js';
 
+/*
+
+    This is a mockup module to emulate server in github pages
+
+ */
+
 export default {
     namespaced: true,
     state() {
