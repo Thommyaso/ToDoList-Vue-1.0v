@@ -1,16 +1,16 @@
-import TaskForm from './TaskForm.vue';
+import ToDoForm from './ToDoForm.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/TaskForm',
-    component: TaskForm,
+    title: 'Example/ToDoForm',
+    component: ToDoForm,
     tags: ['autodocs'],
     argTypes: {
         onTask: {control: {type: null}},
     },
 };
 
-export const TaskForm01 = {
+export const ToDoForm01 = {
     args: {
     },
 };

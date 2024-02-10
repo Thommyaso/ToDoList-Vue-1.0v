@@ -5,8 +5,9 @@
             name="textarea"
             class="container__textarea"
             placeholder="Type-in task..."
+            onkeydown="if(event.keyCode===13){event.preventDefault();}"
         ></textarea>
-        <ButtonElement
+        <ToDoButton
             :btnClass="setBtnClass"
             @click = "handleSubmitClick"
         />
@@ -14,12 +15,12 @@
 </template>
 
 <script>
-import '@/components/TaskForm/TaskForm.scss';
-import ButtonElement from '@/components/ButtonElement/ButtonElement.vue';
+import '@/components/ToDoForm/ToDoForm.scss';
+import ToDoButton from '@/components/ToDoButton/ToDoButton.vue';
 
 export default {
     components: {
-        ButtonElement,
+        ToDoButton,
     },
     computed: {
         setBtnClass() {
@@ -39,6 +40,7 @@ export default {
         }
     },
     mounted() {
+        document.addEventListener('keyup', this.handleGlobalKeyUp);
         this.textarea = this.$refs.myTextarea;
     },
     methods: {
@@ -50,6 +52,11 @@ export default {
         validateTask() {
             const task = this.textarea.value;
             return task.length > 0;
+        },
+        handleGlobalKeyUp(event) {
+            if (event.keyCode === 13) {
+                this.handleSubmitClick();
+            }
         },
     },
 };

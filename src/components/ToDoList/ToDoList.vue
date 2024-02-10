@@ -1,7 +1,7 @@
 <template>
     <li class="container__listEl">
         <p class="container__paragraph">{{ task }}</p>
-        <ButtonElement
+        <ToDoButton
             :btnClass="setBtnClass"
             @click="handleDeleteClick"
         />
@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import '@/components/ListElement/ListElement.scss';
-import ButtonElement from '@/components/ButtonElement/ButtonElement.vue';
+import '@/components/ToDoList/ToDoList.scss';
+import ToDoButton from '@/components/ToDoButton/ToDoButton.vue';
 
 export default {
     components: {
-        ButtonElement,
+        ToDoButton,
     },
     computed: {
         setBtnClass() {

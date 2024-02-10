@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <LoadingIndicator
-            v-if="showLoadingIndicator"
-            :visible="showLoadingIndicator"
+        <ToDoLoading
+            v-if="showToDoLoading"
+            :visible="showToDoLoading"
         />
         <ul class="container__list" v-else>
-            <ListElement
+            <ToDoList
                 v-for="task in tasks"
                 :key="task.id"
                 :task="task.task"
@@ -13,7 +13,7 @@
                 :showDeletingIndicator="showDeletingIndicator"
             />
         </ul>
-        <TaskForm
+        <ToDoForm
             @onTask = "processNewTask"
             :processingTask="requestProcessing"
             :retainTask="retainTask"
@@ -22,15 +22,15 @@
 </template>
 
 <script>
-import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator.vue';
-import ListElement from '@/components/ListElement/ListElement.vue';
-import TaskForm from '@/components/TaskForm/TaskForm.vue';
+import ToDoLoading from '@/components/ToDoLoading/ToDoLoading.vue';
+import ToDoList from '@/components/ToDoList/ToDoList.vue';
+import ToDoForm from '@/components/ToDoForm/ToDoForm.vue';
 import {mapActions, mapState, mapMutations} from 'vuex';
 
 export default {
     data() {
         return {
-            showLoadingIndicator: false,
+            showToDoLoading: false,
             showDeletingIndicator: false,
             retainTask: true,
         };
@@ -42,12 +42,12 @@ export default {
         }),
     },
     components: {
-        ListElement,
-        TaskForm,
-        LoadingIndicator,
+        ToDoList,
+        ToDoForm,
+        ToDoLoading,
     },
     mounted() {
-        this.showLoadingIndicator = true;
+        this.showToDoLoading = true;
         this.retriveTasks()
             .catch(() => {
                 this.addAlert({
@@ -60,7 +60,7 @@ export default {
                 });
             })
             .finally(() => {
-                this.showLoadingIndicator = false;
+                this.showToDoLoading = false;
             });
     },
     methods: {

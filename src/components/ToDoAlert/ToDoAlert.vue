@@ -9,7 +9,7 @@
                     <p>{{ message.text }}</p>
                 </div>
                 <div class="alertWrapper__btnContainer">
-                    <ButtonElement
+                    <ToDoButton
                         :btnClass="setBtnClass"
                         @click="handleDeleteClick"
                     />
@@ -18,10 +18,10 @@
         </Transition>
 </template>
 <script>
-import '@/components/AlertElement/AlertElement.scss';
+import '@/components/ToDoAlert/ToDoAlert.scss';
 import infoImg from '@/components/assets/infoImg.svg';
 import errorImg from '@/components/assets/errorImg.svg';
-import ButtonElement from '@/components/ButtonElement/ButtonElement.vue';
+import ToDoButton from '@/components/ToDoButton/ToDoButton.vue';
 
 export default {
     data() {
@@ -38,7 +38,7 @@ export default {
         persistent: Boolean,
     },
     components: {
-        ButtonElement,
+        ToDoButton,
     },
     mounted() {
         this.showAlert = true;
@@ -46,7 +46,7 @@ export default {
         if (!this.persistent) {
             this.timerId = setTimeout(() => {
                 this.showAlert = false;
-            }, 8000);
+            }, 3000);
         }
     },
     beforeUnmount() {
@@ -96,7 +96,7 @@ export default {
     },
     methods: {
         removeAlert() {
-            this.$emit('removeAlertElement');
+            this.$emit('removeToDoAlert');
         },
 
         handleDeleteClick() {

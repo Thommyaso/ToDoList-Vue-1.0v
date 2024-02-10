@@ -1,22 +1,22 @@
 <template>
-    <div class="alertContainerView">
-        <AlertElement
+    <div class="AlertContainer">
+        <ToDoAlert
             v-for="alert in alerts"
             :message="alert.message"
             :key="alert.id"
             :type="alert.type"
             :persistent="alert.persistent"
-            @removeAlertElement="removeAlert(alert.id)"
+            @removeToDoAlert="removeAlert(alert.id)"
         />
     </div>
 </template>
 <script>
-import AlertElement from '@/components/AlertElement/AlertElement.vue';
+import ToDoAlert from '@/components/ToDoAlert/ToDoAlert.vue';
 import {mapState, mapMutations} from 'vuex';
 
 export default {
     components: {
-        AlertElement,
+        ToDoAlert,
     },
     computed: {
         ...mapState({

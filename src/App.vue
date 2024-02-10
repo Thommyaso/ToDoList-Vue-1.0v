@@ -1,14 +1,14 @@
 
 <template>
-    <AlertContainerView/>
+    <AlertContainer/>
     <router-view></router-view>
 </template>
 <script>
-import AlertContainerView from '@/views/AlertContainerView.vue';
+import AlertContainer from '@/views/AlertContainer.vue';
 
 export default {
     components: {
-        AlertContainerView,
+        AlertContainer,
     },
 };
 </script>

@@ -1,9 +1,9 @@
-import LoadingIndicator from './LoadingIndicator.vue';
+import ToDoLoading from './ToDoLoading.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/LoadingIndicator',
-    component: LoadingIndicator,
+    title: 'Example/ToDoLoading',
+    component: ToDoLoading,
     tags: ['autodocs'],
     argTypes: {
         visible: {
@@ -12,7 +12,7 @@ export default {
     },
 };
 
-export const InitLoadingIndicator = {
+export const InitToDoLoading = {
     args: {
         visible: true,
     },

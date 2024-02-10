@@ -1,9 +1,9 @@
-import ButtonElement from './ButtonElement.vue';
+import ToDoButton from './ToDoButton.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/ButtonElement',
-    component: ButtonElement,
+    title: 'Example/ToDoButton',
+    component: ToDoButton,
     tags: ['autodocs'],
     argTypes: {
         btnClass: {

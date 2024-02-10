@@ -1,9 +1,9 @@
-import AlertElement from './AlertElement.vue';
+import ToDoAlert from './ToDoAlert.vue';
 import '../../assets/styles/base/_index.scss';
 
 export default {
-    title: 'Example/AlertElement',
-    component: AlertElement,
+    title: 'Example/ToDoAlert',
+    component: ToDoAlert,
     tags: ['autodocs'],
     argTypes: {
         message: {control: {type: null}},
