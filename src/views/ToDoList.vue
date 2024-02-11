@@ -66,9 +66,9 @@ export default {
     methods: {
         ...mapMutations('AlertModule', ['addAlert']),
         ...mapActions('TaskModule', ['retriveTasks', 'submitTask', 'deleteTask']),
-        processNewTask(data, validation) {
+        processNewTask(data) {
             this.retainTask = true;
-            if (!validation) {
+            if (!this.validateTask(data)) {
                 this.addAlert({
                     type: 'error',
                     message: {title: 'Invalid task'},
@@ -111,6 +111,9 @@ export default {
                         message: {title: error.message},
                     });
                 });
+        },
+        validateTask(task) {
+            return task.length > 0;
         },
     }};
 </script>
