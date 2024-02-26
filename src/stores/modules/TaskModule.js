@@ -1,20 +1,21 @@
 import axios from 'axios';
+import config from '@/service/config';
 
 export default {
     namespaced: true,
     state() {
         return {
             tasks: [],
-            requestProcessing: false,
-            baseUrl: 'http://localhost:3000/task/',
+            isRequestProcessing: false,
+            baseUrl: config.baseApiServerUrl,
         };
     },
     mutations: {
-        setRequestProcessing(state) {
-            state.requestProcessing = true;
+        setisRequestProcessing(state) {
+            state.isRequestProcessing = true;
         },
-        resetRequestProcessing(state) {
-            state.requestProcessing = false;
+        resetisRequestProcessing(state) {
+            state.isRequestProcessing = false;
         },
         setTasks(state, tasks) {
             state.tasks = [...tasks];
@@ -27,26 +28,26 @@ export default {
         },
     },
     actions: {
-        async retriveTasks({commit, state}) {
+        async retriveTasks({ commit, state }) {
             return await axios.get(state.baseUrl)
                 .then((result) => {
                     commit('setTasks', result.data);
                 });
         },
 
-        async submitTask({commit, state}, task) {
-            commit('setRequestProcessing');
-            return await axios.post(state.baseUrl, {task})
+        async submitTask({ commit, state }, task) {
+            commit('setisRequestProcessing');
+            return await axios.post(state.baseUrl, { task })
                 .then((result) => {
                     commit('addTask', result.data.createdTask);
                     return this;
                 })
                 .finally(() => {
-                    commit('resetRequestProcessing');
+                    commit('resetisRequestProcessing');
                 });
         },
 
-        async deleteTask({commit, state}, id) {
+        async deleteTask({ commit, state }, id) {
             return await axios.delete(`${state.baseUrl}${id}`)
                 .then(() => {
                     commit('deleteTask', id);

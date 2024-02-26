@@ -6,7 +6,7 @@ export default {
     component: ToDoForm,
     tags: ['autodocs'],
     argTypes: {
-        onTask: {control: {type: null}},
+        onTaskSubmit: { control: { type: null } },
     },
 };
 

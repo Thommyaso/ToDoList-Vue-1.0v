@@ -1,6 +1,5 @@
-
 <template>
-    <AlertContainer/>
+    <AlertContainer />
     <router-view></router-view>
 </template>
 <script>

@@ -1,16 +1,13 @@
 <template>
-   <div :class="setClass"></div>
+    <div :class="setClass"></div>
 </template>
 <script>
 import '@/components/ToDoLoading/ToDoLoading.scss';
 export default {
-    props: ['visible'],
+    props: {visible: {type: String, default: null}},
     computed: {
         setClass() {
-            if (this.visible) {
-                return 'loader--visible';
-            }
-            return 'loader--hidden';
+            return this.visible ? 'loader--visible' : 'loader--hidden';
         },
     },
 };

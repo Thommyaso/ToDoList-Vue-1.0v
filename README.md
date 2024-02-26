@@ -28,6 +28,8 @@ The .env file should include the following variables:
 
 - `VITE_MOCKSERVICE`: This boolean variable enables you to opt for a local server setup via the server.js file to store tasks, with Vuex store managing its state through API requests. By default, it's set to `true`, facilitating app testing without requiring the server.js file. If you desire to use server you need to set it to `false`
 
+- `VITE_BASE_API_SERVER_URL`: This variable is the URL used by the API server to access task data. By default, this project utilizes server.js file as server, which employs http://localhost:3000/task/ as its endpoint. If you opt to modify this variable, please ensure to update the server.js file accordingly or set up your own server. We recommend setting it to the value provided in the .env.example file for seamless integration.
+
 ### Start local server:
 
 

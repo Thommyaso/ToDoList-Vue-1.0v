@@ -1,14 +1,18 @@
 <template>
-    <form class="container__form" action="">
+    <form
+        class="container__form"
+        action=""
+    >
         <textarea
             ref="myTextarea"
             name="textarea"
             class="container__textarea"
             placeholder="Type-in task..."
+            @keydown="textareaEvent"
         ></textarea>
         <ToDoButton
             :btnClass="setBtnClass"
-            @click = "handleSubmitClick"
+            @click="handleSubmitClick"
         />
     </form>
 </template>
@@ -21,6 +25,11 @@ export default {
     components: {
         ToDoButton,
     },
+    props: {
+        processingTask: Boolean,
+        retainTask: Boolean,
+    },
+    emits: ['onTaskSubmit'],
     data() {
         return {
             textarea: null,
@@ -34,28 +43,22 @@ export default {
             return 'btn--add';
         },
     },
-    props: {
-        processingTask: Boolean,
-        retainTask: Boolean,
-    },
     updated() {
         if (!this.retainTask) {
-            this.textarea.value = '';
+            this.$refs.myTextarea.value = '';
         }
-    },
-    mounted() {
-        this.textarea = this.$refs.myTextarea;
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && document.activeElement === this.textarea) {
-                event.preventDefault();
-                this.handleSubmitClick();
-            }
-        });
     },
     methods: {
         handleSubmitClick() {
             if (!this.processingTask) {
-                this.$emit('onTask', this.textarea.value);
+                this.$emit('onTaskSubmit', this.$refs.myTextarea.value);
+            }
+        },
+
+        textareaEvent(evt) {
+            if (evt.key === 'Enter') {
+                evt.preventDefault();
+                this.handleSubmitClick();
             }
         },
     },

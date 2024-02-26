@@ -2,8 +2,8 @@
     <div class="AlertContainer">
         <ToDoAlert
             v-for="alert in alerts"
-            :message="alert.message"
             :key="alert.id"
+            :message="alert.message"
             :type="alert.type"
             :persistent="alert.persistent"
             @removeToDoAlert="removeAlert(alert.id)"

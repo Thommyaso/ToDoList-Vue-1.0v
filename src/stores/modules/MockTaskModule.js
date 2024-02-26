@@ -1,4 +1,4 @@
-import {v4} from 'uuid';
+import { v4 } from 'uuid';
 import exampleTasks from '@/exampleTasks.js';
 
 /*
@@ -12,16 +12,16 @@ export default {
     state() {
         return {
             tasks: [],
-            requestProcessing: false,
+            isRequestProcessing: false,
         };
     },
     mutations: {
-        setRequestProcessing(state) {
-            state.requestProcessing = true;
+        setisRequestProcessing(state) {
+            state.isRequestProcessing = true;
         },
 
-        resetRequestProcessing(state) {
-            state.requestProcessing = false;
+        resetisRequestProcessing(state) {
+            state.isRequestProcessing = false;
         },
 
         setTasks(state, tasks) {
@@ -37,7 +37,7 @@ export default {
         },
     },
     actions: {
-        async retriveTasks({commit}) {
+        async retriveTasks({ commit }) {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     resolve();
@@ -48,24 +48,24 @@ export default {
                 });
         },
 
-        async submitTask({commit}, task) {
-            commit('setRequestProcessing');
+        async submitTask({ commit }, task) {
+            commit('setisRequestProcessing');
             const createdTask = {
                 task,
                 id: v4(),
             };
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    resolve({data: {createdTask}});
+                    resolve({ data: { createdTask } });
                     commit('addTask', createdTask);
                 }, 2500);
             })
                 .finally(() => {
-                    commit('resetRequestProcessing');
+                    commit('resetisRequestProcessing');
                 });
         },
 
-        async deleteTask({commit, state}, id) {
+        async deleteTask({ commit, state }, id) {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     commit('deleteTask', id);

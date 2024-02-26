@@ -1,21 +1,29 @@
 <template>
-        <Transition @after-leave="removeAlert">
-            <div v-if="showAlert" :class="setWrapperClass">
-                <div class="alertWrapper__alertImgContainer">
-                    <img class="alertWrapper__alertImg" :src="setSvgImage">
-                </div>
-                <div :class="setMessageContainerClass">
-                    <h3 class="alertWrapper__header">{{message.title}}</h3>
-                    <p>{{ message.text }}</p>
-                </div>
-                <div class="alertWrapper__btnContainer">
-                    <ToDoButton
-                        :btnClass="setBtnClass"
-                        @click="handleDeleteClick"
-                    />
-                </div>
+    <Transition @after-leave="removeAlert">
+        <div
+            v-if="showAlert"
+            :class="setWrapperClass"
+        >
+            <div class="alertWrapper__alertImgContainer">
+                <img
+                    class="alertWrapper__alertImg"
+                    :src="setSvgImage"
+                >
             </div>
-        </Transition>
+            <div :class="setMessageContainerClass">
+                <h3 class="alertWrapper__header">
+                    {{ message.title }}
+                </h3>
+                <p>{{ message.text }}</p>
+            </div>
+            <div class="alertWrapper__btnContainer">
+                <ToDoButton
+                    :btnClass="setBtnClass"
+                    @click="handleDeleteClick"
+                />
+            </div>
+        </div>
+    </Transition>
 </template>
 <script>
 import '@/components/ToDoAlert/ToDoAlert.scss';
@@ -24,6 +32,21 @@ import errorImg from '@/components/assets/errorImg.svg';
 import ToDoButton from '@/components/ToDoButton/ToDoButton.vue';
 
 export default {
+    components: {
+        ToDoButton,
+    },
+    props: {
+        message: {
+            type: Object,
+            default: null,
+        },
+        type: {
+            type: String,
+            default: null,
+        },
+        persistent: Boolean,
+    },
+    emits: ['removeToDoAlert'],
     data() {
         return {
             showAlert: false,
@@ -31,26 +54,6 @@ export default {
             errorImg: errorImg,
             timerId: null,
         };
-    },
-    props: {
-        message: Object,
-        type: String,
-        persistent: Boolean,
-    },
-    components: {
-        ToDoButton,
-    },
-    mounted() {
-        this.showAlert = true;
-
-        if (!this.persistent) {
-            this.timerId = setTimeout(() => {
-                this.showAlert = false;
-            }, 3000);
-        }
-    },
-    beforeUnmount() {
-        clearTimeout(this.timerId);
     },
     computed: {
         setWrapperClass() {
@@ -77,12 +80,7 @@ export default {
         },
 
         setSvgImage() {
-            if (this.type === 'error') {
-                return this.errorImg;
-            } else if (this.type === 'info') {
-                return this.infoImg;
-            }
-            return null;
+            return this.type === 'error' ? this.errorImg : this.type === 'info' ? this.infoImg : null;
         },
 
         setBtnClass() {
@@ -93,6 +91,18 @@ export default {
             }
             return null;
         },
+    },
+    mounted() {
+        this.showAlert = true;
+
+        if (!this.persistent) {
+            this.timerId = setTimeout(() => {
+                this.showAlert = false;
+            }, 3000);
+        }
+    },
+    beforeUnmount() {
+        clearTimeout(this.timerId);
     },
     methods: {
         removeAlert() {

@@ -1,12 +1,29 @@
 /* eslint-env node */
 module.exports = {
     root: true,
-    extends: ['plugin:vue/vue3-essential', 'eslint:recommended', 'plugin:storybook/recommended'],
+    extends: [
+        'plugin:vue/vue3-essential',
+        'eslint:recommended',
+        'plugin:storybook/recommended',
+        'plugin:vue/vue3-recommended',
+    ],
+    env: {
+        node: true,
+        browser: true,
+    },
     parserOptions: {
         ecmaVersion: 'latest',
     },
+
     rules: {
-    // Rules are divided into sections from http://eslint.org/docs/rules/
+        // Rules are divided into sections from http://eslint.org/docs/rules/
+
+        'vue/v-on-event-hyphenation': 'off',
+        'vue/html-indent': ['error', 4],
+        'vue/html-end-tags': 'off',
+        'vue/html-self-closing': 'off',
+        'no-import-assign': 'off',
+        'vue/attribute-hyphenation': 'off',
 
         // Possible errors
         'comma-dangle': [
@@ -198,7 +215,7 @@ module.exports = {
             // 4 spaces
             4,
             {
-            // # of units defined above
+                // # of units defined above
                 SwitchCase: 1,
             },
         ],
@@ -222,7 +239,7 @@ module.exports = {
                 maxEOF: 1,
             },
         ],
-        'no-nested-ternary': 2,
+        'no-nested-ternary': 0,
         'no-new-object': 2,
         'no-spaced-func': 2,
         'no-ternary': 0,
@@ -230,7 +247,7 @@ module.exports = {
         'no-underscore-dangle': 0,
         'no-unneeded-ternary': 2,
         'object-curly-spacing': [
-            2,
+            0,
             'never',
         ],
         'one-var': [2,

@@ -4,19 +4,22 @@
             v-if="showToDoLoading"
             :visible="showToDoLoading"
         />
-        <ul class="container__list" v-else>
+        <ul
+            v-else
+            class="container__list"
+        >
             <ToDoList
                 v-for="task in tasks"
                 :key="task.id"
                 :task="task.task"
-                @deleteClicked = "processDeleteClick(task.id)"
                 :showDeletingIndicator="showDeletingIndicator"
+                @deleteClicked="processDeleteClick(task.id)"
             />
         </ul>
         <ToDoForm
-            @onTask = "processNewTask"
-            :processingTask="requestProcessing"
+            :processingTask="isRequestProcessing"
             :retainTask="retainTask"
+            @onTaskSubmit="processNewTask"
         />
     </div>
 </template>
@@ -25,9 +28,15 @@
 import ToDoLoading from '@/components/ToDoLoading/ToDoLoading.vue';
 import ToDoList from '@/components/ToDoList/ToDoList.vue';
 import ToDoForm from '@/components/ToDoForm/ToDoForm.vue';
-import {mapActions, mapState, mapMutations} from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 
 export default {
+
+    components: {
+        ToDoList,
+        ToDoForm,
+        ToDoLoading,
+    },
     data() {
         return {
             showToDoLoading: false,
@@ -38,13 +47,8 @@ export default {
     computed: {
         ...mapState({
             tasks: (state) => state.TaskModule.tasks,
-            requestProcessing: (state) => state.TaskModule.requestProcessing,
+            isRequestProcessing: (state) => state.TaskModule.isRequestProcessing,
         }),
-    },
-    components: {
-        ToDoList,
-        ToDoForm,
-        ToDoLoading,
     },
     mounted() {
         this.showToDoLoading = true;
@@ -71,23 +75,23 @@ export default {
             if (!this.validateTask(data)) {
                 this.addAlert({
                     type: 'error',
-                    message: {title: 'Invalid task'},
+                    message: { title: 'Invalid task' },
                 });
                 return;
             }
-            if (!this.requestProcessing) {
+            if (!this.isRequestProcessing) {
                 this.submitTask(data)
                     .then(() => {
                         this.addAlert({
                             type: 'info',
-                            message: {title: 'Task Added'},
+                            message: { title: 'Task Added' },
                         });
                         this.retainTask = false;
                     })
                     .catch((error) => {
                         this.addAlert({
                             type: 'error',
-                            message: {title: error.message},
+                            message: { title: error.message },
                         });
                     })
                     .finally(() => {
@@ -101,19 +105,20 @@ export default {
                 .then(() => {
                     this.addAlert({
                         type: 'info',
-                        message: {title: 'Task Deleted'},
+                        message: { title: 'Task Deleted' },
                     });
                 })
                 .catch((error) => {
                     this.showDeletingIndicator = false;
                     this.addAlert({
                         type: 'error',
-                        message: {title: error.message},
+                        message: { title: error.message },
                     });
                 });
         },
         validateTask(task) {
             return task.length > 0;
         },
-    }};
+    },
+};
 </script>
