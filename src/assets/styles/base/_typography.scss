@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Permanent+Marker&display=swap');
+@font-face {
+    font-family: 'Handlee';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: local('Handlee'),
+      url('/Handlee-Regular.ttf') format('truetype');
+  }
+  
 
 *{
     font-family: "Handlee", cursive;
