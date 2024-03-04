@@ -1,0 +1,110 @@
+$errorColor: rgb(255, 0, 0);
+$infoColor: rgb(0, 128, 0);
+$wrapperHeight: 5rem;
+$containerPadding: 0.8rem;
+
+@mixin color($alertColor, $container: false){
+    color: $alertColor;
+    @if $container {
+        border-color: rgba($alertColor, 0.15);
+        background-color: rgba($alertColor, 0.05); 
+    }
+}
+
+.alertWrapper {
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 0.375rem;
+    border: 0.063rem solid;
+    border-radius: 0.313rem;
+    height: fit-content;
+    width: fit-content;
+
+    &--error {
+        @include color($errorColor, true);
+    }
+
+    &--info {
+        @include color($infoColor, true);
+    }
+
+    &__messageContainer {
+        margin: 0;
+        display: inline-flex;
+        height: 100%;
+        padding: $containerPadding 0;
+        min-width: 12.5rem;
+        max-width: 18.75rem;
+        flex-wrap: wrap;
+        border: none;
+
+        &--hidden {
+            visibility: hidden;
+            display: none;
+            height: 0;
+        }
+
+        &--error {
+            visibility: visible;
+            @include color($errorColor);
+            
+        }
+
+        &--info {
+            visibility: visible;
+            @include color($infoColor);
+        }
+    }
+
+    &__header {
+        font-weight: 600;
+    }
+
+    &__alertImgContainer {
+        padding: $containerPadding 0.5rem 0 0.5rem;
+        height: 100%;
+        display: inline-flex;
+    } 
+
+    &__alertImg {
+        height: 20px; 
+        width: 20px;
+    }
+    
+    &__btnContainer {
+        display: inline-flex;
+        margin-right: 0.3rem;
+        margin-top: 0.3rem;
+    }
+}
+
+.v {
+    &-enter-from {
+        opacity: 0;
+        transform-origin: bottom;
+        transform: translateY(2.5rem);
+    }
+
+    &-enter-active{
+        opacity: 1;
+        max-height: calc( #{$wrapperHeight} + #{$containerPadding} * 2 );
+        visibility: visible;
+        transition: all 0.3s ease-in-out ;
+    }
+
+    &-leave-active {
+        transform-origin: center;
+        max-height: calc( #{$wrapperHeight} + #{$containerPadding} * 2 );
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.25s ease-in-out ;
+    }
+
+    &-leave-to {
+        opacity: 0;
+        border-width: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        visibility: hidden;
+    }
+}

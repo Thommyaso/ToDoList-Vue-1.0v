@@ -1,0 +1,12 @@
+.AlertContainer {
+    visibility: visible;
+    margin-right: 2rem;
+    position: fixed;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items:end;
+    right: 0;
+    top:0;
+    height: fit-content;
+}

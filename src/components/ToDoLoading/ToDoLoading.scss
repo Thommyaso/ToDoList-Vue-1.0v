@@ -1,0 +1,24 @@
+.loader {
+    &--visible {
+        visibility: visible;
+
+        height:50px;
+        width:50px;
+        border-radius:50%;
+        border:5px solid #ddd;
+        border-top-color:#333;
+        animation:rotate 1s infinite;
+        margin-bottom: 2rem;
+        }
+        @keyframes rotate{
+            100%{
+                rotate:360deg;
+            }
+        }
+
+    &--hidden {
+        visibility: hidden;
+    }
+
+}
+
